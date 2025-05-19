@@ -1,0 +1,189 @@
+/* font-family */
+
+/* 태그 {폰트-패밀리: 1, 2, 3;} 1부터 적용해서 해당 폰트가 없으면 3까지 순차적 적용 */
+#ff1 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+#ff2 {
+  font-family: "궁서", serif;
+}
+#ff3 {
+  font-family: "돋움", sans-serif;
+}
+/* gugi에서 가져온 폰트임 */
+#ff4 {
+  font-family: "Gugi", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+/* font-weight */
+#fw1 {
+  font-weight: bold;
+}
+#fw2 {
+  /* bold가 font-weight:700; 정도임 */
+  font-weight: 900;
+}
+#fw3 {
+  font-weight: 100;
+}
+/* font-size */
+#fs1 {
+  font-size: 32px;
+}
+#fs2 {
+  /* 
+    em: 부모 기준 * n
+    rem: html기준(16px) * n
+    %: 부모 기준 비율
+  */
+  /* 부모가 30px -> 30 x 2 = 60px */
+  font-size: 2em;
+}
+#fs3 {
+  /* 기본 크기(16px) * 2 = 32px */
+  font-size: 2rem;
+}
+#fs4 {
+  /* 부모 크기(30px) * 2 */
+  font-size: 200%;
+}
+/* font-style */
+#fs5 {
+  font-style: italic;
+}
+#fs6 {
+  font-style: oblique;
+}
+/* font-variant */
+#fv {
+  font-variant: small-caps;
+}
+/* font */
+#font1 {
+  /* 
+    아래 순서대로 써야 적용됨
+    font-style font-variant font-weight font-size/line-height font-family 
+  */
+  font: italic small-caps bold 32px/2 "gugi";
+}
+#font2 {
+  /*
+    font-size: 2rem;
+    font-family: "Gugi";
+    아래처럼 순서 지켜서 적용시킬 수 있음
+  */
+  font: 2rem "Gugi";
+}
+/* color */
+#c-name {
+  /* 색상명: 브라우저가 인식하는 기본 색상명(Web Safe Colors, 216가지) */
+  color: red;
+}
+#c-16 {
+  /* #RRGGBB */
+  color: #dd882e;
+}
+#c-rgb {
+  /* Red(0~255), Green(0~255), Blue(0~255), Alpha(투명도, 0~1) */
+  color: rgb(68, 223, 78);
+  /* rgb(a, b, c, A) > A는 투명도 */
+  color: rgb(0, 0, 0, 0.5);
+}
+#c-hsl {
+  /* 색상환(H, 0~360) 채도(S, 0~100%) 밝기(L, 0~100%) 투명도(A, 0~1) */
+  color: hsl(200, 50%, 50%, 0.2);
+}
+/* text-decoration */
+#td1 {
+  text-decoration: underline;
+}
+#td2 {
+  text-decoration: overline;
+}
+#td3 {
+  text-decoration: line-through;
+}
+#td4 {
+  text-decoration: none;
+}
+#tt1 {
+  text-transform: uppercase;
+}
+#tt2 {
+  text-transform: lowercase;
+}
+#tt3 {
+  text-transform: capitalize;
+}
+/* text-shadow */
+.shadow {
+  font-size: 50px;
+  font-weight: 900;
+}
+#ts1 {
+  color: orangered;
+  /* text-shadow: x축 y축 blur(흐림) color */
+  text-shadow: 5px 5px 5px yellow;
+}
+
+#ts2 {
+  color: white;
+  text-shadow: 0px 0px 10px yellowgreen;
+}
+#ts3 {
+  text-shadow: 0px 0px 4px gray, 0px -5px 4px yellow, 0px -10px 8px orange,
+    0px -15px 15px orangered, 0px -22px 20px red;
+}
+/* white-space */
+#whs {
+  /* 단어 사이 띄어쓰기 그대로 나타내게 함 */
+  white-space: pre-wrap;
+}
+/* letter-spacing / word-spacing */
+#ls {
+  letter-spacing: 10px;
+}
+#ws {
+  word-spacing: 20px;
+}
+/* text-align */
+#ta1 {
+  text-align: left;
+}
+#ta2 {
+  text-align: right;
+}
+#ta3 {
+  text-align: center;
+}
+#ta4 {
+  text-align: justify;
+}
+/* text-indent */
+#ti {
+  text-indent: 10px;
+}
+/* line-height */
+#lh {
+  line-height: 1.8;
+}
+/* text-overflow */
+#to {
+  background: beige;
+  width: 500px;
+  /* 한 줄로만 표기 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* list-style */
+ul.circle {
+  list-style: circle;
+}
+ul.square {
+  list-style: square;
+}
+ul.none {
+  list-style: none;
+}

@@ -1,0 +1,101 @@
+/* width, height */
+/* px: 고정 크기 / %: 부모 기준 비율 / vw, vh: 뷰포트 너비, 높이 기준 비율 */
+#fixed-size {
+  width: 300px;
+  height: 150px;
+  background-color: lightblue;
+}
+#variable-size {
+  /* vw == %, vh == % : 화면 크기에 따른 퍼센트로 나타내기 때문에 화면 크기에 반응한다 */
+  width: 100vw;
+  height: 20vh;
+  background-color: lightgreen;
+}
+/* padding, margin */
+.space {
+  background: lightyellow;
+  border: 1px solid;
+  margin-bottom: 10px;
+}
+#padding1 {
+  padding: 20px;
+}
+#padding2 {
+  padding-top: 30px;
+  padding-left: 10px;
+  padding-right: 20px;
+  padding-bottom: 40px;
+  /* 
+    padding 순서: top부터 시계방향
+    top right bottom left
+   */
+  padding: 30px 20px 40px 10px;
+  /* top right/left bottom */
+  padding: 30px 20px 40px;
+  /* top/bottom right/left */
+  padding: 30px 20px;
+}
+#margin1 {
+  margin: 20px;
+}
+#margin2 {
+  /* margin끼리 위아래로 부딪히면 사이 공백은 둘 중의 최댓값으로 결정됨 */
+  margin: 5px 15px 10px 30px;
+}
+.collapse-box {
+  background-color: lightcoral;
+  padding: 10px;
+  /* #444 == #444444 */
+  border: 1px solid #444;
+}
+#box1 {
+  margin-bottom: 50px;
+}
+#box2 {
+  margin-bottom: 30px;
+}
+.center-box {
+  width: 200px;
+  height: 100px;
+  background: lightseagreen;
+  color: white;
+  text-align: center;
+  /* height과 line-height의 값을 맞추면 수직 정렬이 됨 */
+  line-height: 100px;
+  margin: auto;
+}
+.border {
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  background: #eee;
+  display: inline-block;
+}
+#border1 {
+  /* solid: 실선 */
+  border: 3px solid red;
+}
+#border2 {
+  /* dashed: 점선 */
+  border: 5px dashed green;
+}
+#border3 {
+  /* dotted: 도트 */
+  border: 2px dotted blue;
+}
+.radius-box {
+  width: 120px;
+  height: 120px;
+  background: plum;
+  color: white;
+  text-align: center;
+  line-height: 120px;
+  margin-bottom: 10px;
+}
+.radius1 {
+  border-radius: 10px;
+}
+.radius2 {
+  /* 후에 박스 크기를 변경해도 원 형태를 유지함 */
+  border-radius: 50%;
+}

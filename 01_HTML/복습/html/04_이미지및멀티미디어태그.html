@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이미지 및 멀티미디어 태그</title>
+  </head>
+  <body>
+    <h2>이미지 태그</h2>
+    <!-- src: 이미지 경로 / alt: 이미지 설명 / "../": 상위 폴더로 올라가기 / "./": 현재 위치 -->
+    <!-- width랑 height는 보통 같이 쓰진 않음. -->
+    <!-- loading="lazy": 사용자가 화면을 내릴 때 성능 최적화(크게 메모리 잡아먹는 놈 늦게 로딩시켜서 최적화) -->
+
+    <!-- 진도 사진 불러오셈 -->
+
+    <h3>고정 크기 (픽셀 단위)</h3>
+    <p>화면 크기와 관계없이 고정된 크기</p>
+    <img src="assets/husky.jpg" width="?" height="120" />
+    <img src="assets/rtrb.jpg" width="?" height="120" />
+
+    <h3>가변 크기 (퍼센트 단위)</h3>
+    <p>부모 태그의 너비에 따라 크기가 자동으로 조절</p>
+    <!-- width => 좌우 꽉찬 너비를 100%할 때 -->
+    <img src="assets/husky.jpg" width=?" height="120" />
+    <img src="assets/rtrb.jpg" width="?" height="120" />
+
+    <h3>반응형 이미지</h3>
+    <p>디바이스 너비에 따라 최적의 이미지를 자동 선택</p>
+    <!-- 이미지 링크 뒤에 "?w=n"을 붙이면 width값을 n과 같이 적용 -->
+    <img
+      src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200"
+      srcset="
+        https://images.unsplash.com/photo-1518770660439-4636190af475?(   )   (   ),
+        https://images.unsplash.com/photo-1518770660439-4636190af475?(   )   (   ),
+        https://images.unsplash.com/photo-1518770660439-4636190af475?(   ) (   )
+      "
+      sizes="(max-width: ?px) ?px, (max-width: ?px) ?px, ?px"
+      alt=""
+      width="100%"
+    />
+    <h2>오디오 태그</h2>
+    <? src="assets/audio.mp3" (재생 컨트롤러 표시) (반복)>
+      <? href="assets/audio.mp3" 다운로드 표시>오디오 다운로드</?>
+    </?>
+
+    <h2>비디오 태그</h2>
+    <video
+      src="assets/video.mp4"
+      컨트롤러 표시
+      썸네일 바꾸기
+    ></video>
+
+    <!-- ?: 외부 컨텐츠 삽입 -->
+    <?
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/BKU4eOWSthQ?si=rWtXmJ1LUey73K3d"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen
+    ></?>
+  </body>
+</html>

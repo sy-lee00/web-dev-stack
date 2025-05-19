@@ -38,5 +38,68 @@
         </ul>
       </ul>
     </div>
+
+    <h3>7. 속성 선택자</h3>
+    <p>
+      요소에 작성된 속성을 이용해 선택
+      <br />
+      대괄호[]를 사용하여 속성, 속성값으로 선택
+    </p>
+    <div class="div-class" name="name1">div1</div>
+    <div class="div-class" name="name2">div2</div>
+    <div class="div-class" name="name3 name1">div3</div>
+    <div class="class-div" name="name3">div4</div>
+
+    <h3>8. 형제 선택자</h3>
+    <p>같은 부모를 가진 형제 요소 중, 뒤에 위치한 특정 요소를 선택할 때</p>
+    <div id="test2">div1</div>
+    <div>div2</div>
+    <div>div3</div>
+    <div>div4</div>
+    <p>p</p>
+    <div>div5</div>
+
+    <h3>9. 반응 선택자</h3>
+    <p>사용자의 상호작용(마우스 올림, 클릭 등)에 따라 선택</p>
+    <!-- #active-test.area -->
+    <div id="active-test" class="area">active 테스트</div>
+    <br />
+    <div id="hover-test" class="area">hover 테스트</div>
+    <br />
+    <input type="text" />
+    <input type="checkbox" />
+    <button>클릭 가능</button>
+    <button disabled>클릭 불가능</button>
+
+    <h3>10. 구조 선택자</h3>
+    <p>요소의 순서를 기준으로 특정 위치에 있는 요소를 선택</p>
+    <div id="test3">
+      <ul>
+        <li>list 1</li>
+        <li>list 2</li>
+        <li>list 3</li>
+        <p>p item!</p>
+        <li>list 4</li>
+        <li>list 5</li>
+        <li>list 6</li>
+        <li>list 7</li>
+        <li>list 8</li>
+        <p>p item!</p>
+        <li>list 9</li>
+        <li>list 10</li>
+      </ul>
+    </div>
+
+    <h3>11. 가상 요소 선택자</h3>
+    <p>선택한 요소의 앞(before)이나 뒤(after)에 원하는 내용을 추가</p>
+    <div id="test4">
+      <p>TEXT</p>
+    </div>
+
+    <h3>12. 선택자 우선순위</h3>
+    <div id="test5" class="class5" style="background: purple">
+      우선순위 테스트
+    </div>
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
   </body>
 </html>

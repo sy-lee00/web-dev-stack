@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>폼태그</title>
+  </head>
+  <body>
+    <!-- ?(?) 
+        사용자가 페이지에 값을 입력하고 전송하는 모든 영역
+        모든 입력 양식은 <form> 태그 내부에 작성한다. 
+        대부분 <input> 태그의 type 속성으로 구분
+        입력값 구분을 위해 name 속성(=서버에 전송할 키값) 필수
+        <textarea>, <select>, <button>
+    -->
+    <!-- 아무 사이트 링크 보면 ?q=어쩌고 이런 식으로 나와있음
+            ?keyword(name)=내가 텍스트에 적은 내용
+    -->
+    <h1>폼</h1>
+
+    <!--  
+            input의 type 속성들
+            - text: 한 줄 입력
+            - password: 비밀번호 입력
+            - submit: 제출 버튼
+            - reset: 초기화
+            - button: JS(JavaScript)용 버튼
+            value: input 버튼 글씨
+    -->
+
+    <h2>검색</h2>
+    <form action="" method="get">
+      <!-- 
+            - action: 데이터를 전달할 서버 주소
+            - method: 데이터 전송 방식 (GET or POST)
+                - GET: URL에 데이터 노출, 빠르고 간단, 보안 낮음 (검색, 조회 등)
+                - POST: 데이터가 숨겨져서 저장, 보안 높음 (회원가입, 로그인 등)
+            
+        -->
+      검색: <input type="text" name="keyword" />
+      <input type="submit" value="검색" />
+    </form>
+
+    <h2>로그인</h2>
+    <form action="">
+      아이디:
+      <input type="text" name="id" placeholder="아이디" required /><br />
+      비밀번호:
+      <input type="password" name="pwd" placeholder="비밀번호" /><br />
+      <input type="submit" />
+      <input type="reset" />
+      <input type="button" value="확인" onclick="alert('버튼 클릭!')" />
+    </form>
+
+    <h2>라디오 & 체크박스</h2>
+    <!-- radio: 단일 선택, checkbox: 복수 선택 -->
+    <!-- lavel에 for, input에 id를 맞춰서 텍스트 클릭으로 체크박스도 체크 됨 -->
+    <form action="">
+      <fieldset>
+        <legend>성별</legend>
+        <label for="">
+          <input type="radio" name="gender" value="남자" id="man" />
+          <label for="man">남자</label>
+          <br />
+          <input type="radio" name="gender" value="여자" id="woman" />
+          <label for="woman">여자</label>
+        </label>
+      </fieldset>
+      <!-- 
+            1. label의 for 값은 input의 id랑 일치
+            2. 서버에는 key=value 형태로 보내야 하는데
+                key가 name, value가 value
+       -->
+      <fieldset>
+        <legend>관심사</legend>
+        <input type="checkbox" id="travel" name="interest" value="travel" />
+        <label for="travel">여행</label>
+        <input type="checkbox" id="music" name="interest" value="music" />
+        <label for="music">음악</label>
+        <input type="checkbox" id="game" name="interest" value="game" />
+        <label for="game">게임</label>
+      </fieldset>
+      <input type="submit" />
+    </form>
+
+    <h2>파일, 숨김</h2>
+    <!-- file: 파일 첨부, hidden: 숨겨진 데이터 -->
+    <form action="">
+      <input type="file" name="upload" accept="image/*, .mp4" />
+      <input type="hidden" name="data" value="1234" />
+      <button type="submit">전송</button>
+    </form>
+
+    <h2>날짜 & 시간</h2>
+    <form action="">
+      datetime-local: <input type="datetime-local" /><br />
+      week: <input type="week" /><br />
+      month: <input type="month" /><br />
+      date: <input type="date" /> <br />
+      time: <input type="time" />
+    </form>
+
+    <h2>그 외에 input</h2>
+    <form action="">
+      email: <input type="email" /><br />
+      url: <input type="url" /><br />
+      tel: <input type="tel" /><br />
+      search: <input type="search" /><br />
+      number: <input type="number" /><br />
+      range: <input type="range" /><br />
+      color: <input type="color" /><br />
+      <button type="submit">전송</button>
+    </form>
+
+    <h2>select, textarea</h2>
+    <form action="">
+      <select name="national" id="">
+        <option value="" disabled selected>선택하세요</option>
+        <optgroup label="아시아">
+          <option value="kr">한국</option>
+          <option value="jp">일본</option>
+          <option value="ch">중국</option>
+        </optgroup>
+        <optgroup label="유럽">
+          <option value="fr">프랑스</option>
+        </optgroup>
+      </select>
+
+      <textarea style="resize: none"></textarea>
+    </form>
+  </body>
+</html>

@@ -36,5 +36,127 @@ p {
   color: red;
 }
 
+/* 7. 속성 선택자 */
+
+/* = '정확히' 일치 */
+div[name="name1"] {
+  background-color: pink;
+}
+/* ~= 해당 '단어'가 포함되어 있으면 전부 적용 */
+div[name~="name1"] {
+  background: yellow;
+}
+/* *= '부분' 일치 */
+div[class*="-c"] {
+  color: red;
+}
+/* ^= 해당 단어로 '시작'하면 적용 */
+div[class^="cl"] {
+  background: blue;
+}
+/* |= 해당 단어로 시작하면 적용 */
+div[class|="div"] {
+  background: cyan;
+}
+div[class$="div"] {
+  /* $= 해당 단어로 '끝나'면 적용 */
+  background: pink;
+}
+/* 8. 형제 선택자 */
+#test2 ~ div {
+  /* 동일한 부모를 가진 요소 중에
+    #test2 이후에 등장하는 모든 형제 div 선택
+  */
+  background: beige;
+}
+/* #test2 바로 뒤에 있는 div만 선택 */
+#test2 + div {
+  background: yellow;
+}
+/* 9. 반응 선택자 */
+.area {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+/* 
+  :active - 마우스를 눌렀을 때 작용
+  !important - 우선 적용
+*/
+#active-test:active {
+  background-color: yellow !important;
+  color: red;
+}
+/* hover - 커서를 올렸을 때 작용 */
+#hover-test:hover {
+  background-color: maroon;
+  color: white;
+}
+/* focus - 포커스가 갔을 때 작용 */
+input[type="text"]:focus {
+  background: pink;
+}
+/* checked - 체크박스에 체크 상태인 경우에 작용 */
+input[type="checkbox"]:checked {
+  width: 20px;
+  height: 20px;
+}
+/* enabled - button 클릭이 가능한 경우에 적용 */
+button:enabled {
+  background-color: violet;
+}
+/* disabled - button 클릭이 불가능한 경우에 적용 */
+button:disabled {
+  background-color: yellowgreen;
+}
+/* 10. 구조 선택자 */
+#test3 li:first-child {
+  background: salmon;
+}
+#test3 li:last-child {
+  background: skyblue;
+}
+/* nth-child(숫자, odd - 홀수, even - 짝수) */
+/* nth-child 순서 기준 */
+#test3 li:nth-child(even) {
+  background: darkcyan;
+}
+/* nth-of-type() 타입 기준 */
+#test3 li:nth-of-type() {
+  color: white;
+}
+#test3 li:nth-last-child(3) {
+  background: hotpink;
+}
+#test3 li:nth-last-of-type(4) {
+  background: seagreen;
+}
+/* 11. 가상 요소 선택자 */
+#test4 p::before {
+  content: "앞";
+  color: blue;
+  background: yellow;
+}
+#test4 p::after {
+  content: "뒤";
+  color: white;
+  background: black;
+}
+/* 12. 선택자 우선순위 */
+#test5 {
+  width: 200px;
+  height: 200px;
+}
+div.class5 {
+  background: pink !important;
+}
+div#test5 {
+  background: skyblue;
+}
+/* 우선순위
+  !important > 인라인 스타일(style="") > 아이디 선택자(#id) > 클래스 선택자(.class) > 태그 선택자 
+*/
+/* https://flukeout.github.io/ 연습사이트 */
+
 /* 좀 더 세부 단위일수록, 
 나중에 적용할수록 우선순위가 높음 */
