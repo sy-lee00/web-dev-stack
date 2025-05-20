@@ -99,3 +99,142 @@
   /* 후에 박스 크기를 변경해도 원 형태를 유지함 */
   border-radius: 50%;
 }
+/* box-sizing */
+.box {
+  width: 300px;
+  height: 200px;
+  padding: 20px;
+  border: 10px solid;
+  background-color: lightcoral;
+  margin: 10px;
+}
+.box-content {
+  /* 디폴트 */
+  /* width + padding + border = size */
+  box-sizing: content-box;
+}
+.box-border {
+  /* border-box는 처음 정한 크기(width: 300px;)로 크기 고정 설정됨 */
+  box-sizing: border-box;
+}
+/* display */
+.display {
+  background-color: pink;
+  padding: 10px;
+  margin: 5px;
+  width: 150px;
+  height: 70px;
+}
+/* 
+  inline: 본인 텍스트 영역만
+  block: 나열에 용이
+  inline-block: 나열에 용이하며 ...
+*/
+.display-inline {
+  display: inline;
+}
+.display-block {
+  display: block;
+}
+.display-inline-block {
+  display: inline-block;
+}
+/* float */
+.float {
+  float: left;
+  width: 80px;
+  height: 80px;
+  margin: 5px;
+  background: skyblue;
+  text-align: center;
+  line-height: 80px;
+}
+/* position */
+#outer {
+  /* overflow: auto | 화면 영역 넘어가는 부분도 볼 수 있게 스크롤 생김 */
+  position: relative;
+  width: 400px;
+  height: 200px;
+  background: #f4f4f4;
+  overflow: auto;
+}
+.position-box {
+  width: 100px;
+  height: 100px;
+}
+#relative {
+  /* 현재 본인 위치를 기준으로 시작점 지정 */
+  background: orange;
+  position: relative;
+  /* top, bottom, left, right */
+  bottom: 100px;
+  right: -70px;
+}
+#absolute {
+  /* 시작점이 부모(디폴트는 브라우저)를 기준으로 함 */
+  background: green;
+  position: absolute;
+  top: 20px;
+  left: 30px;
+}
+#fixed {
+  /* 시작점이 화면을 기준으로 함 */
+  background: red;
+  position: fixed;
+  right: 20px;
+  top: 30px;
+}
+#sticky {
+  /* 화면에서 스크롤을 내려서 해당 영역의 top: 0이 될 때, 스크롤을 더 내려도 영역이 top: 0인 채로 화면에 따라옴 */
+  background: blue;
+  position: sticky;
+  top: 0;
+}
+.visibility {
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  background: lightgray;
+  display: inline-block;
+}
+#vis2 {
+  visibility: visible;
+}
+#vis1 {
+  /* 숨겨도 공간은 그대로 차지 중 */
+  visibility: hidden;
+}
+#dis1 {
+  /* 영역 자체가 지워짐 */
+  display: none;
+}
+#z-outer {
+  width: 200px;
+  height: 200px;
+  background: #ddd;
+  position: relative;
+}
+.z-index {
+  /* z-index: 이미지가 겹칠 때 이미지 순서 지정. 클수록 위로 옴. */
+  /* opacity: 투명도 */
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  opacity: 0.5;
+}
+#z-index1 {
+  background: red;
+  z-index: 1;
+  top: 20px;
+  left: 20px;
+}
+#z-index2 {
+  background: green;
+  z-index: 2;
+  top: 40px;
+  left: 40px;
+}
+#z-index3 {
+  background: blue;
+  z-index: 9999; /* 무조건 위로 오게 */
+}

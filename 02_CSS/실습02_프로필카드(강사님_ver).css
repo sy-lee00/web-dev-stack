@@ -1,0 +1,48 @@
+* {
+  /* 시작 세팅 이렇게 해놓으면 좋음 */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background: indigo;
+  background: linear-gradient(purple, pink);
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+}
+#profile-card {
+  border: 3px solid white;
+  border-radius: 15px;
+  width: 400px;
+  height: 450px;
+  margin: 20px auto;
+  padding: 20px;
+  text-align: center;
+  color: white;
+}
+.profile-image {
+  width: 200px;
+  height: 200px;
+  background: skyblue;
+  margin: 20px auto;
+  border-radius: 50%;
+  background-image: url(../01_HTML/assets/hui.png);
+  /* 후에 이미지 수정할 때 html로 지정해 놓는 게 더 편할 것임. */
+  background-size: cover;
+  background-position: center;
+}
+#profile-card a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: 3px solid white;
+  margin: 15px;
+  padding: 10px;
+}
+#profile-card a:hover {
+  background-color: white;
+  color: black;
+}

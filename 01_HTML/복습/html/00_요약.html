@@ -1,0 +1,136 @@
+<!-- HTML = Hyper Text Markup Language -->
+
+<!-- 기본구조 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta />
+  </head>
+  <body></body>
+</html>
+
+<!-- 
+    meta name= 
+    keyword content="키워드1, 키워드2"
+    description content="문서 설명"
+    author content="문서 작성자"
+    charset="UTF=8"
+    meta http-equiv="X-UA-Compartible" content="width=device-width, initial-scale-1.0"
+-->
+
+<!------------------------------------------------------------------------------------->
+
+<!-- 텍스트태그 -->
+
+제목 태그
+<!-- 1~6, 작을 수록 커짐 -->
+<h1></h1>
+<h2></h2>
+<h3></h3>
+<h4></h4>
+<h5></h5>
+<h6></h6>
+
+문단 태그
+<p></p>
+<!-- 줄바꿈 -->
+<br />
+
+강조 태그
+<!-- 굵게 -->
+<b></b>
+<!-- 굵게, 강조 -->
+<strong></strong>
+<!-- 기울이기 -->
+<i></i>
+<!-- 기울이기, 강조 -->
+<em></em>
+<!-- 형광펜 -->
+<mark></mark>
+<!-- 작은 글자 -->
+<small></small>
+<!-- 아랫첨자 -->
+<sub></sub>
+<!-- 윗첨자 -->
+<sup></sup>
+
+인용문
+<!-- p태그 사이에 사용 -->
+<!-- 짧은 인용문 -->
+<q></q>
+<!-- 긴 인용문 -->
+<blockquote></blockquote>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+목록 태그
+<!-- 순서 없는 목록(Unordered List) -->
+<ul>
+  <il></il>
+</ul>
+<!-- 순서 있는 목록(Ordered List) -->
+<ol>
+  <li></li>
+</ol>
+<!-- 번호 유형 설정(a, A, i, I 등 설정 가능) -->
+<ol type="a">
+  <li></li>
+</ol>
+<!-- 목록 내 목록으로 중첩 가능 -->
+<ul>
+  <li></li>
+  <ul>
+    <li></li>
+  </ul>
+</ul>
+
+정의 목록
+<!-- 정의 목록 dl(definition list) -->
+<dl>
+  <!-- 용어(dt)와 설명(dd)로 작성한다. -->
+  <dt>서울</dt>
+  <dd>수도권이고 어쩌고..</dd>
+</dl>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+<!-- 이미지 및 멀티미디어 태그 -->
+
+<!-- 이미지 태그 -->
+이미지 태그
+<!-- 
+  src: 이미지 경로
+  alt: 이미지 설명
+  "../": 상위 폴더로 올라가기
+  "./": 현재 위치
+  loading="lazy": 지정 이미지 로딩 느리게
+ -->
+
+고정 크기(픽셀 단위)
+<img src="" alt="" width="n" />
+
+가변 크기(퍼센트 단위)
+
+<img src="" alt="" width="n%" />
+
+반응형 이미지
+<img
+  src="https://이미지.어쩌고.컴/블라블라?w=1200"
+  srcset="
+    https://이미지.어쩌고.컴/블라블라?w=480   480w,
+    https://이미지.어쩌고.컴/블라블라?w=800   800w,
+    https://이미지.어쩌고.컴/블라블라?w=1200 1200w
+  "
+  sizes="(max-width: 600px) 480px, (max-width: 900px) 800px, 1200px"
+  alt=""
+  width="100%"
+/>
+
+오디오 태그
+<!-- 
+  controls: 
+-->
+<audio src="" controls loop>
+  <a href="" download></a>
+</audio>

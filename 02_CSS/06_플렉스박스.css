@@ -1,0 +1,162 @@
+.container {
+  /* container를 display:flex */
+  display: flex;
+  background: #f0f0f0;
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
+.tall {
+  height: 300px;
+}
+.item {
+  background: white;
+  border: 2px solid #333;
+  padding: 1rem;
+  text-align: center;
+}
+/* flex-direction */
+#fd {
+  /* display: flex 먼저 써야함 */
+  /* row(기본값): 가로 방향 */
+  flex-direction: row;
+  /* row-reverse:  가로 반대 방향 */
+  flex-direction: row-reverse;
+  /* column: 세로 방향 */
+  flex-direction: column;
+  flex-direction: column-reverse;
+}
+/* justify-content */
+#jc {
+  /* flex-start(기본값): 왼쪽 정렬 */
+  justify-content: flex-start;
+  /* flex-end: 오른쪽 정렬 */
+  justify-content: flex-end;
+  /* flex-center: 가운데 정렬 */
+  justify-content: center;
+  /* flex-between: 양 끝 정렬 */
+  justify-content: space-between;
+  /* 
+    space-around: 균일 간격 
+    본인 기준으로 양쪽으로 균일한 간격 생성
+  */
+  justify-content: space-around;
+  /* 
+    space-evenly: 동일 간격
+    동일한 간격 생성
+  */
+  justify-content: space-evenly;
+}
+/* align-items */
+#ai {
+  /* stretch: 높이 자동 확장 */
+  align-items: stretch;
+  /* flex-start: 상단 정렬 */
+  align-items: flex-start;
+  /* flex-end: 하단 정렬 */
+  align-items: flex-end;
+  /* center: 수직 중앙 정렬 */
+  align-items: center;
+  /* flex-direction: column; */
+}
+/* flex-wrap */
+#fw {
+  /* nowrap: 줄바꿈 x */
+  flex-wrap: nowrap;
+  /* wrap: 줄바꿈 o */
+  flex-wrap: wrap;
+  /* wrap-reverse: 역방향 줄바꿈 */
+  flex-wrap: wrap-reverse;
+}
+#fw .item {
+  width: 100px;
+  height: 100px;
+}
+/* align-self */
+.self-start {
+  align-self: flex-start;
+}
+.self-center {
+  align-self: center;
+}
+.self-end {
+  align-self: flex-end;
+}
+/* order: 순서 변경 */
+.order1 {
+  order: 2;
+}
+.order3 {
+  order: -1;
+}
+/* gap: 아이템 사이 간격(상하좌우 간격 벌이는 margin과 다르게, gap은 아이템 사이 간격만 준다) */
+#gap {
+  gap: 20px;
+}
+#gap .item {
+  /* margin: 20px; */
+}
+/* flex-grow */
+/* 컨테이너보다 아이템이 작을 때
+    flex-grow 값이 클수록 남은 공간을 더 많이 차지
+    아래 flex-grow 값은 각각 1, 1, 3이므로 1:1:3 비율의 크기를 가진다 */
+#grow-1 {
+  flex-grow: 1;
+}
+#grow-2 {
+  flex-grow: 1;
+}
+#grow-3 {
+  flex-grow: 3;
+}
+/* flex-shrink */
+/* 
+    컨테이너보다 아이템이 클 때
+    flex-shrink 값이 작을수록 더 적게 줄어든다
+    0일 때는 아예 줄어들지 않는다.
+    + width로 해도 별 차이 없음.
+*/
+#shrink .item {
+  width: 300px;
+}
+#shrink-1 {
+  flex-shrink: 0;
+}
+#shrink-2 {
+  flex-shrink: 1;
+}
+#shrink-3 {
+  flex-shrink: 2;
+}
+/* flex-basis */
+#basis-1 {
+  flex-basis: 100px;
+}
+#basis-2 {
+  flex-basis: 200px;
+}
+#basis-3 {
+  flex-basis: 150px;
+}
+/* flex: flex-grow flex-shrink flex-basis 한번에 가능 */
+#flex-1 {
+  flex: 0 1 auto; /* 디폴트 */
+}
+#flex-2 {
+  /* flex:1 = grow: 1, shrink: 1, basis: 0% */
+  flex: 1;
+}
+#flex-3 {
+  /* 아무리 줄여도 형태는 유지하는 선까지만 줄어듦. */
+  flex: none;
+}
+/* align-content */
+#ac {
+  flex-wrap: wrap;
+  height: 200px;
+  /* flex-start: 상단 정렬 */
+  align-content: flex-start;
+  /* center: 중앙 정렬 */
+  align-content: center;
+  /* space-between: 양끝 정렬 */
+  align-content: space-between;
+}
