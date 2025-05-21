@@ -103,6 +103,8 @@ section {
 }
 .animation-reverse {
   background-color: darkslateblue;
+}
+.animation-reverse:hover {
   /* reverse: animation이 반대로 시작 */
   animation: bounce 5s ease-in-out reverse;
 }
