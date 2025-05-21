@@ -1,0 +1,76 @@
+header {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+header:hover {
+  background: white;
+}
+header h2 {
+  font-size: 2rem;
+  padding: 10px;
+  font-weight: bold;
+}
+/* header nav {
+  background-color: beige;
+  display: flex;
+  gap: 10px;
+}
+header nav a {
+  height: 52px;
+  line-height: 52px;
+  padding: 5px;
+} */
+header nav {
+  display: flex;
+}
+header nav a {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+header nav a:hover {
+  background: black;
+  color: white;
+}
+section h2 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+section p {
+  line-height: 1.5;
+  text-align: center;
+  width: 70%;
+}
+#section1 {
+  background-color: #eeeeee;
+}
+#section2 {
+  background-color: #00adb5;
+}
+#section3 {
+  background-color: #393e46;
+}
+section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.top {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: black;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+}

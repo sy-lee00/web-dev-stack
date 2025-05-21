@@ -1,0 +1,126 @@
+.box {
+  width: 150px;
+  height: 150px;
+  background-color: black;
+  color: white;
+  line-height: 150px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 10px;
+  margin: auto;
+}
+section {
+  display: flex;
+}
+.transition {
+  background-color: cadetblue;
+  /* transition: all 0.3s; */
+  /* transition-property: background-color, font-size */
+  /* 
+    priperty: 속성 명시, 
+    duration: 전환 시간, 
+    timing-function: 전환 속도 곡선, 
+    delay: 전환 시간 지연 시간 
+  */
+  transition-property: background-color, font-size, transform, border-radius;
+  transition-duration: 1s;
+  /* 이미지 변화 속도 조절(속도 임의 조절을 원하면 브라우저 검사탭에 
+    해당 transition기능 누르면 나오는 보라색 버튼 눌러서 조정 후 복붙) */
+  transition-timing-function: cubic-bezier(0.42, 0, 1, 0.22);
+  transition-delay: 0.5s;
+  /* 
+    위 4줄이 아래와 동일 
+    transition: all 1s cubic-bezier(0.42, 0, 1, 0.22) 0.5s;
+  */
+}
+.transition:hover {
+  background-color: coral;
+  font-size: 2rem;
+  transform: scale(1.5) rotate(15deg);
+  border-radius: 50%;
+}
+/* transform */
+.transform-scale {
+  background: coral;
+}
+.transform-scale:hover {
+  /* scale: 크기 확대 */
+  transform: scale(1.3);
+}
+.transform-rotate {
+  background: orange;
+}
+.transform-rotate:hover {
+  /* rotate: 회전
+    deg: 각도 */
+  transform: rotate(45deg);
+}
+.transform-translate {
+  background: mediumaquamarine;
+}
+.transform-translate:hover {
+  /* translate: 이동(현재 위치에서(x, y)만큼 이동) */
+  transform: translate(40px, 20px);
+}
+.transform-skew {
+  background-color: dodgerblue;
+}
+.transform-skew:hover {
+  /* skew: 기울이기 */
+  transform: skew(10deg, 20deg);
+}
+/* Animation */
+@keyframes bounce {
+  /* animation: 애니메이션명(우선적으로 정의가 필요) */
+  0% {
+    transform: translate(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: translate(25px, 50px);
+  }
+}
+@keyframes bounce2 {
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+}
+.animation-once {
+  background-color: crimson;
+  /* animation: 애니메이션명 지속시간 속도 곡선 횟수 */
+  animation: bounce 2s ease-in-out 1;
+}
+.animation-alternate {
+  background-color: indigo;
+  /* alternate: 역재생까지 */
+  animation: bounce 1s ease-in-out infinite alternate;
+}
+.animation-reverse {
+  background-color: darkslateblue;
+  /* reverse: animation이 반대로 시작 */
+  animation: bounce 5s ease-in-out reverse;
+}
+.animation-paused {
+  background-color: mediumaquamarine;
+  animation: bounce2 2s linear infinite;
+}
+.animation-paused:hover {
+  /* 마우스 올리면 애니메이션 퍼즈됨 */
+  animation-play-state: paused;
+}
+.perspective-container {
+  perspective: 600px;
+}
+.perspective-container .box {
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+.perspective-container .box:hover {
+  transform: rotateY(180deg);
+}
