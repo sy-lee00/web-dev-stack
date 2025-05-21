@@ -20,7 +20,7 @@ section {
     priperty: 속성 명시, 
     duration: 전환 시간, 
     timing-function: 전환 속도 곡선, 
-    delay: 전환 시간 지연 시간 
+    delay: 전환 시간 지연 시간
   */
   transition-property: background-color, font-size, transform, border-radius;
   transition-duration: 1s;
@@ -115,10 +115,13 @@ section {
   animation-play-state: paused;
 }
 .perspective-container {
-  perspective: 600px;
+  /* perspective: 원근감 적용 */
+  perspective: 200px;
 }
 .perspective-container .box {
   transition: transform 1s;
+  /* transform-style: preserve-3d
+    이를 쓰면 해당 컨테이너 영역을 3차원 영역(z축이 생김)으로 사용함. */
   transform-style: preserve-3d;
 }
 .perspective-container .box:hover {
