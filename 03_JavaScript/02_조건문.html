@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>조건문</title>
+  </head>
+  <body>
+    <h1>조건문</h1>
+    <h2>1. if / else</h2>
+    <script>
+      /*
+            if(조건) {
+                조건이 true
+            } else {
+                조건이 false
+            }
+
+            else는 생략 가능
+        */
+      let age = 18;
+      if (age > 19) {
+        console.log("성인");
+      } else {
+        console.log("미성년자");
+      }
+
+      // 삼항 연산자: 조건 ? 조건이 true면 : false면
+      age = 20;
+      const result = age > 19 ? "성인" : "미성년자";
+      console.log(result);
+    </script>
+
+    <h2>2. else if</h2>
+    <script>
+      /*
+            if(조건 A) {
+                조건 A가 true
+            } else if(조건 B) {
+                (조건 A가 false이면서)조건 B가 true
+            } else {
+                모든 조건이 false 
+            }
+            살짝 그물망이 단계적으로 촘촘해지는 느낌.
+        */
+      // 20세 이상이면 성인, 14세 이상이면 청소년,
+      // 8세 이상이면 어린이, 그 외는 유아
+      // age = prompt("나이를 입력해주세요"); 임시 주석
+      let aa;
+
+      if (age >= 20) {
+        aa = "성인";
+      } else if (age >= 14) {
+        aa = "청소년";
+      } else if (age >= 8) {
+        aa = "어린이";
+      } else {
+        aa = "유아";
+      }
+      console.log(aa);
+
+      //   const result1 = age >= 8 ? "어린이" : "유아";
+      //   const result2 = age >= 14 ? "청소년" : result1;
+      //   const result3 = age >= 20 ? "성인" : result2;
+      //   console.log(result1);
+
+      console.log(
+        age >= 20 ? "성인" : age >= 14 ? "청소년" : age >= 8 ? "어린이" : "유아"
+      ); // 수정
+    </script>
+
+    <h2>3. switch</h2>
+    <script>
+      /*
+            switch(데이터) {
+                case 조건A(값):
+                    조건A가 true
+                    break; // break가 있어야 case 조건A만 적용됨.
+                case 조건B(값):
+                    조건B가 true
+                    break;
+                default:
+                    모든 조건이 false
+            }
+        */
+      const number = prompt("숫자를 입력하세요.");
+      const remain = number % 2;
+      let rst;
+      // number 값이 짝수이면 "짝수", 홀수이면 "홀수", 그게 아니면 "숫자가 아닙니다."
+
+      switch (remain) {
+        case 0:
+          rst = "짝수";
+          break;
+        case 1:
+          rst = "홀수";
+          break;
+        default:
+          rst = "숫자가 아닙니다.";
+      }
+      console.log(rst);
+
+      //   if (remain === 1) {
+      //     rst = "홀수";
+      //   } else if (remain === 0) {
+      //     rst = "짝수";
+      //   } else {
+      //     rst = "숫자가 아닙니다.";
+      //   }
+      //   console.log(rst);
+    </script>
+
+    <h2>4. 중첩 if</h2>
+    <script>
+      // 조건문 안에 조건문을 넣은 형태
+      // 아이디가 user1, 비밀번호가 1234인 경우만 "로그인 성공"
+      // 비밀번호가 틀리면 "비밀번호 오류", 아이디가 틀리면 "아이디 오류"
+      const id = "user1";
+      const pw = 1234;
+      let wt_id = prompt("아이디를 입력하세요.");
+
+      if (wt_id === id) {
+        let wt_pw = prompt("비밀번호를 입력하세요.");
+        if (wt_pw == pw) {
+          console.log("로그인 성공");
+        } else if (wt_pw === "") {
+          console.log("비밀번호를 적으시오.");
+        } else {
+          console.log("비밀번호 오류");
+        }
+      } else if (wt_id == "") {
+        console.log("아이디를 적으시오.");
+      } else {
+        console.log("아이디 오류");
+      }
+
+      //   if (wt_id === id) {
+      //     // 아이디만 일치한 경우
+      //     wt_pw = prompt("비밀번호를 입력하세요.");
+      //     if (wt_pw == pw) {
+      //       console.log("로그인 성공");
+      //     } else if (wt_pw === "") {
+      //       console.log("비밀번호를 적으시오.");
+      //     } else {
+      //       console.log("비밀번호 오류");
+      //     }
+      //   } else if (wt_id === "") {
+      //     // 아이디가 일치하지 않은 경우
+      //     console.log("아이디를 적으시오.");
+      //   } else {
+      //     console.log("아이디 오류");
+      //   }
+    </script>
+
+    <h2>5. break가 없는 switch</h2>
+    <script>
+      const fruit = "banana";
+
+      switch (fruit) {
+        case "apple":
+          console.log("사과");
+        case "orange":
+          console.log("오렌지");
+        case "banana":
+          console.log("바나나");
+        case "kiwi":
+          console.log("키위");
+        default:
+          console.log("해당 없음");
+      }
+    </script>
+  </body>
+</html>
