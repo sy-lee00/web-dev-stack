@@ -69,7 +69,8 @@
           const 아아한잔 = 5500;
           const 가진돈 = 15000;
           const 최대잔수 = parseInt(가진돈 / 아아한잔);
-          const 잔돈 = 15000 - 5500 * parseInt(가진돈 / 아아한잔);
+          const 잔돈 = 가진돈 % (아아한잔 * parseInt(가진돈 / 아아한잔));
+          console.log(잔돈);
         </script>
       </li>
 
