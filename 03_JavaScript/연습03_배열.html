@@ -36,7 +36,7 @@
         <script>
           const music = ["가요", "팝송", "클래식", "재즈", "OST"];
           // [팝송, 클래식, 재즈]
-          const pcj = music.slice(2, 5);
+          const pcj = music.slice(1, 4);
           console.log(pcj);
           // [OST]
           const ost = music.slice(4);
@@ -81,6 +81,9 @@
           const dupArrSet = new Set(dupArr);
           const arrDAS = [...dupArrSet];
           console.log(arrDAS);
+          // 이렇게 바로도 가능
+          const direct = [...new Set(dupArr)];
+          console.log(direct);
         </script>
       </li>
     </ol>

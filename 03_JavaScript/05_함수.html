@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>함수</title>
+  </head>
+  <body>
+    <h1>함수</h1>
+    <script>
+      // 1. 매개변수(parameter) X, 리턴값 X
+      function sayHello() {
+        console.log("안녕하세요~");
+      }
+      sayHello(); // 함수 호출
+
+      // 2.매개변수 O, 리턴값 X
+      // name에 기본값을 설정하면 인자값(파라미터)을 받지 않으면 기본값
+      function greet(name = "아무개") {
+        // name = "아무개": 함수를 호출할 때 매개변수 입력이 없을 시, 디폴트값 설정
+        console.log(name + "님, 안녕하세요~");
+      }
+      greet("성훈");
+      greet(); // 기본적으로 파라미터를 보내지 않으면 undefined
+
+      // 3. 매개변수 X, 리턴값 O
+      function getNumber() {
+        return 1049;
+      }
+      console.log(getNumber()); // 얘 자체가 1049
+
+      // 4. 매개변수 O, 리턴값 O
+      function add(a, b) {
+        return a + b;
+      }
+      console.log(add(30, 50)); // 80
+    </script>
+
+    <h2>1. 변수의 유효범위(Scope)</h2>
+    <script>
+      const num1 = 100; // 전역 변수
+
+      function sample1() {
+        const num1 = 200; // sample1 함수 내부 지역 변수
+        console.log(`sample1 내부: ${num1}`);
+      }
+      console.log(`sample1 외부: ${num1}`); // 100
+      sample1();
+    </script>
+
+    <h2>2. 선언적 vs 익명 vs 화살표 함수</h2>
+    <script>
+      // 선언적 함수(Function Declaration)
+      // - 호이스팅 가능: 코드를 해석하는 시점에 메모리에 등록, 선언 이전에 호출 가능
+      console.log("선언적 함수: ", multiply(3, 4));
+      function multiply(a, b) {
+        return a * b;
+      }
+
+      // 익명 함수(Function Expression)
+      // - 함수 이름이 없음, 변수에 할당
+      const subtract = function (a, b) {
+        return a - b;
+      };
+      console.log("익명 함수: ", subtract(5, 8));
+
+      // 화살표 함수(Arrow Function)
+      // - function 대신 =>(화살표) 사용
+      /*
+        const divide = (a, b) => {
+        return a / b;
+      };
+      */
+      const divide = (a, b) => a / b; // 한 줄로 표현할 경우
+      console.log("화살표 함수: ", divide(12, 3));
+    </script>
+
+    <h2>3. 콜백 함수</h2>
+    <script>
+      // 다른 함수의 인자로 전달되는 함수
+      function callFunc(callback) {
+        console.log("함수 호출 전");
+        callback();
+        console.log("함수 호출 후");
+      }
+
+      function call() {
+        console.log("안녕하세요~ 콜백 함수 호출!");
+      }
+
+      callFunc(call);
+    </script>
+
+    <h2>4. 배열 관련 콜백 함수들</h2>
+    <script>
+      const numbers = [1, 2, 3, 4, 5];
+      // 1. 값을 하나씩 출력해보기
+      // => forEach((값, 인덱스, 배열) => {})
+      numbers.forEach((value, index, array) => {
+        console.log(value);
+      });
+
+      // 2. 배열의 값을 각각 2배로 만들어서 출력해보기
+      const doubled = [];
+      for (const index in numbers) {
+        // console.log(numbers[index] * 2);
+        doubled[index] = numbers[index] * 2;
+      }
+      console.log(doubled);
+
+      // => map((값, 인덱스, 배열) => {}): 각 요소를 가공하여 새로운 배열 반환
+      const doubleMap = numbers.map((value, index, array) => {
+        return value * 2;
+      });
+      console.log(doubleMap);
+
+      // 3. 배열의 짝수만 출력해보기
+      for (const value of numbers) {
+        if (value % 2 === 0) console.log(value);
+      }
+      // => filter((값, 인덱스, 배열) => {}): 조건에 만족하는 요소만 추출해서 새로운 배열 반환
+      const evenFilter = numbers.filter((value, index, array) => {
+        return value % 2 === 0;
+      });
+      console.log(evenFilter);
+      // 4. 배열의 총합 구하기
+      let total = 0;
+      for (let i = 0; i < numbers.length; i++) {
+        total = total + numbers[i];
+      }
+      console.log(total);
+
+      // => reduce((누적된값, 현재값, 인덱스, 배열) => {}, 초기값)
+      // : 배열의 각 요소를 누적하여 하나의 값으로 반환
+      const sumReduce = numbers.reduce((acc, cur, idx, arr) => {
+        console.log(`acc: ${acc}, cur: ${cur}`);
+        return acc + cur;
+      }, 0);
+      console.log(sumReduce);
+    </script>
+  </body>
+</html>

@@ -73,7 +73,9 @@
         겨울)
         <script>
           // Q5: 여기에 코드를 작성하세요
-          const month = prompt("월(月)을 입력하시오.");
+          const month = Number(
+            prompt("월(月)을 입력하시오(숫자만 입력해주세요).")
+          );
 
           if (month >= 3 && month <= 5) {
             console.log("Q5: 봄");
@@ -81,9 +83,32 @@
             console.log("Q5: 여름");
           } else if (month >= 9 && month <= 11) {
             console.log("Q5: 가을");
-          } else if (month == 12 || month <= 2) {
+          } else if (month === 12 || month <= 2) {
             console.log("Q5: 겨울");
           }
+
+          // switch (month) {
+          //   case 3:
+          //   case 4:
+          //   case 5:
+          //     console.log("봄");
+          //     break;
+          //   case 6:
+          //   case 7:
+          //   case 8:
+          //     console.log("여름");
+          //     break;
+          //   case 9:
+          //   case 10:
+          //   case 11:
+          //     console.log("가을");
+          //     break;
+          //   case 12:
+          //   case 1:
+          //   case 2:
+          //     console.log("겨울");
+          //     break;
+          // }
         </script>
       </li>
 
@@ -94,7 +119,7 @@
           // Q6: 여기에 코드를 작성하세요
           const score = 84;
 
-          if (score >= 90) {
+          if (score >= 90 && score <= 100) {
             console.log("Q6: A");
           } else if (score >= 80) {
             console.log("Q6: B");
@@ -112,30 +137,46 @@
         숫자를 입력받아 요일을 출력하시오. (1: 월요일 ~ 7: 일요일)
         <script>
           // Q7: 여기에 코드를 작성하세요
-          const day = prompt("일(日)을 입력하시오.") % 7;
+          let day = prompt("일(日)을 입력하시오(숫자만 입력해주세요).") % 7;
 
           switch (day) {
             case 0:
-              console.log("Q7: 일요일");
+              day = "일";
+              console.log(`Q7: ${day}요일`);
               break;
             case 1:
-              console.log("Q7: 월요일");
+              day = "월";
+              console.log(`Q7: ${day}요일`);
               break;
             case 2:
-              console.log("Q7: 화요일");
+              day = "화";
+              console.log(`Q7: ${day}요일`);
               break;
             case 3:
-              console.log("Q7: 수요일");
+              day = "수";
+              console.log(`Q7: ${day}요일`);
               break;
             case 4:
-              console.log("Q7: 목요일");
+              day = "목";
+              console.log(`Q7: ${day}요일`);
               break;
             case 5:
-              console.log("Q7: 금요일");
+              day = "금";
+              console.log(`Q7: ${day}요일`);
               break;
             case 6:
-              console.log("Q7: 토요일");
+              3;
+              day = "토";
+              console.log(`Q7: ${day}요일`);
           }
+          // 배열로 해보기
+          const days = ["월", "화", "수", "목", "금", "토", "일"];
+          // days[0]: 월 == day: 1
+          // days[1]: 화 == day: 2
+          const value1 = days[day - 1];
+          console.log();
+          console.log(`${value1 !== undefined ? value1 + "요일" : ""}`);
+          3;
         </script>
       </li>
 
@@ -145,21 +186,23 @@
           // Q8: 여기에 코드를 작성하세요
           const A = Number(prompt("A 입력"));
           const B = Number(prompt("B 입력"));
-          const operator = prompt("연산자 입력");
+          const operator = prompt("연산자 입력(+, -, *, / 중에 골라주세요)");
+          let result0;
 
           switch (operator) {
             case "+":
-              console.log("Q8: ", A + B);
+              result0 = A + B;
               break;
             case "-":
-              console.log("Q8: ", A - B);
+              result0 = A - B;
               break;
             case "*":
-              console.log("Q8: ", A * B);
+              result0 = A * B;
               break;
             case "/":
-              console.log("Q8: ", A / B);
+              result0 = A / B;
           }
+          console.log(`Q8: ${A} ${operator} ${B} = ${result0}`);
         </script>
       </li>
 
@@ -185,9 +228,9 @@
         3개의 수 중 가장 큰 수를 출력하시오.
         <script>
           // Q10: 여기에 코드를 작성하세요
-          const X = 1;
+          const X = 10;
           const Y = 5;
-          const Z = 3;
+          const Z = 15;
           let max;
 
           if (X > Y) {
@@ -198,6 +241,10 @@
             max = Z;
           }
           console.log(`Q10: ${max}`);
+          if (X > Y) max = X;
+          if (Y > Z) max = Y;
+          if (Z > X) max = Z;
+          console.log(`Q10(수정): ${max}`);
         </script>
       </li>
 
@@ -218,6 +265,16 @@
             console.log("Q11: 정수는 5의 배수이다.");
           } else {
             console.log("Q11: 어떤 것도 아니다.");
+          }
+
+          if (integer % 3 == 0 && integer % 5 == 0) {
+            console.log("둘 다");
+          } else if (integer % 3 == 0) {
+            console.log("3의 배수");
+          } else if (integer % 3 == 0) {
+            console.log("5의 배수");
+          } else {
+            console.log("둘 다 아님");
           }
         </script>
       </li>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>내장객체</title>
+  </head>
+  <body>
+    <h1>내장 객체</h1>
+    <p>자바 스크립트에서 제공하는 기본 내장 객체들</p>
+    <h2>Math 객체</h2>
+    <script>
+      console.log("최소값 :", Math.min(5, 7, -1, -8)); // -8
+      console.log("최소값 :", Math.max(5, 7, -1, -8)); // 7
+      console.log("절대값: ", Math.abs(-7.5736374737));
+      console.log("반올림: ", Math.round(2.897)); // 3
+      console.log("버림: ", Math.floor(2.897)); // 2
+      console.log("올림: ", Math.ceil(2.897)); // 3
+      console.log("0~1 랜덤: ", Math.random());
+      // 1 ~ 10까지의 랜덤
+      // 0 <= Math.random() < 1
+      // 0 * 10 <= Math.random() * 10 < 1 * 10
+      // 0 <= Math.random() * 10 < 10
+      // 1 <= Math.random() * 10 + 1 < 11
+      console.log(Math.floor(Math.random() * 10) + 1);
+
+      // 5 ~ 15까지
+      console.log(Math.floor(Math.random() * 10) + 5);
+    </script>
+    <h2>Date 객체</h2>
+    <script>
+      const now = new Date();
+      console.log("현재: ", now);
+      console.log(
+        `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일` // Month는 0부터 시작이라 +1 해줘야 현재 월이 나옴
+      );
+      const date = new Date(2025, 12, 16, 17, 50, 0);
+      console.log("특정날짜: ", date);
+      const date2 = new Date("2025-12-16");
+      console.log("특정날짜 2: ", date2);
+
+      const date3 = new Date("2025-12-16T17:50:00");
+      console.log("특정날짜 3: ", date3);
+    </script>
+
+    <h2>Timer</h2>
+    <script>
+      // setTimeout: 일정 시간 후 1회 동작
+      setTimeout(() => {
+        console.log("3초 후!");
+      }, 3000);
+      let sec = 0;
+
+      // setInterval: 일정 시간마다 동작
+      setInterval(() => {
+        console.log(`${++sec}0초`);
+      }, 10000);
+    </script>
+
+    <h2>String 객체</h2>
+    <script>
+      const str = "Hello, JavaScript!";
+      console.log("길이: ", str.length);
+      console.log("포함여부: ", str.includes("Java"));
+      console.log("위치: ", str.indexOf("Script"));
+      console.log("일부: ", str.slice(7, 17));
+      console.log("대문자: ", str.toUpperCase());
+    </script>
+
+    <h2>JSON 객체</h2>
+    <script>
+      // 데이터를 문자열로 변환 및 파싱
+      const obj = {
+        name: "김주현",
+        age: 12,
+      };
+      const jsonStr = JSON.stringify(obj); // 오브젝트를 문자열로
+      console.log(obj);
+      console.log(jsonStr);
+      const parsed = JSON.parse(jsonStr); // 다시 원상복귀
+      console.log(parsed);
+    </script>
+  </body>
+</html>
+<!-- 
+  0.0xxxxx ~ 0.9xxxxx // floor하면) 0 ~ 0
+  *10)
+  0.0xxxxx ~ 9.9xxxxx // floor하면) 0 ~ 9
+  +1)
+  1.0xxxxx ~ 10.9xxxxx // floor하면) 1 ~ 10
+  +5)
+  5.0xxxxx ~ 14.9xxxxx // floor하면) 5 ~ 14
+
+
+  0.0xxxxx ~ 0.9xxxxx // floor하면) 0 ~ 0
+  +1)
+  1.0xxxxx ~ 1.9xxxxx // floor하면) 1 ~ 1
+  *15)
+-->

@@ -1,4 +1,10 @@
-1. 변수와 연산자 [1-1] 변수 var, let, const 자료형 String: 문자 Number: 숫자
-Boolean: 논리형(true, false) typeof(자료형의 유형 식별) unknown: undefined(값이
-정의되지 않음) isNone: null(값이 없음) 문자열 & 템플릿 리터럴 방법1: "나는" + me
-+ "다" 방법2: `나는 ${me} 다` \n: 줄바꿈
+1. 변수와 연산자 
+    [1-1] 변수 
+        var, let, const 
+    자료형 
+        String: 문자 Number: 숫자 Boolean: 논리형(true, false) 
+    typeof(자료형의 유형 식별) 
+        unknown: undefined(값이 정의되지 않음) isNone: null(값이 없음) 
+    문자열 & 템플릿 리터럴 
+        방법1: "나는" + me + "다" 
+        방법2: `나는 ${me} 다` \n: 줄바꿈

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>빈노트</title>
+  </head>
+  <body>
+    <script>
+      const num = [1, 2, 3, 4, 5];
+      num.forEach((value, index, array) => {
+        console.log(index);
+      });
+
+      const doubled = num.map((value, index, array) => {
+        return value * 2;
+      });
+      console.log(doubled);
+
+      const filter = num.filter((value, index, array) => {
+        return value % 2 === 1;
+      });
+      console.log(filter);
+
+      const sum = num.reduce((acc, cur, idx, arr) => {
+        console.log(`acc: ${acc}, cur: ${cur}, idx: ${idx}, arr: ${arr}`);
+        return acc + cur;
+      }, 0);
+    </script>
+  </body>
+</html>
