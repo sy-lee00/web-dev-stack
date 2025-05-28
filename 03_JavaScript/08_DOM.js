@@ -12,7 +12,7 @@ function btn1() {
 // id로 가져오기: 고유한 id로 하나의 태그 선택
 function btn2() {
   const testId = document.getElementById("testId");
-  console.log(testId[1]);
+  console.log(testId);
   const testId2 = document.getElementById("testId2");
   console.log(testId2);
 }

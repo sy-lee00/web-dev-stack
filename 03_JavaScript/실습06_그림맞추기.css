@@ -1,0 +1,66 @@
+body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+#section1 {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+.img1 {
+  object-fit: cover;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+#img1 {
+  background-image: url(./asset/spy1.jpg);
+  background-size: cover;
+}
+#img2 {
+  background-image: url(./asset/spy2.jpg);
+  background-size: cover;
+}
+#img3 {
+  background-image: url(./asset/spy3.jpg);
+  background-size: cover;
+}
+#section2 {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+#click {
+  width: 100px;
+  height: 40px;
+  background: coral;
+  color: navy;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#restart {
+  width: 110px;
+  height: 40px;
+  background: navy;
+  color: coral;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#conglate {
+  font-style: italic;
+  font-weight: bold;
+  visibility: hidden;
+}
