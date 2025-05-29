@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>정규표현식</title>
+  </head>
+  <body>
+    <!-- 정규표현식은 수업 중에 일단 알아두고 나중에 사용할 땐 gpt나 구글링 ㄱㄱ -->
+    <h1>정규표현식(Regular Expression)</h1>
+    <p>문자열에서 특정 패턴을 찾거나, 대체하거나, 나누는 도구</p>
+
+    <h2>기본 메타문자</h2>
+    <ul></ul>
+    <script>
+      // ^: 문자열의 시작
+      const patternStart = /^H/; // H로 시작하는지
+      console.log("^ 테스트: ", patternStart.test("Hello"));
+
+      // $: 문자열의 끝
+      const patternEnd = /d$/; // d로 끝나는지
+      console.log("$ 테스트: ", patternEnd.test("World"));
+
+      // .: 임의의 한 문자
+      const patternDot = /H.llo/; // 어떤 문자 상관 없이 딱 한 문자
+      console.log(". 테스트: ", patternDot.test("Hello"));
+
+      // *: 앞 문자가 0회 이상 반복
+      const patternStar = /abc*d/;
+      console.log("* 테스트: ", patternStar.test("abcd")); // c가 없어도 되고, 2개 이상이어도 true
+
+      // +: 앞 문자가 1회 이상 반복
+      const patternPlus = /abc+b/; // c가 한 개 이상은 무조건
+      console.log("+ 테스트: ", patternPlus.test("abccd"));
+
+      // ?: 앞 문자가 0~1회
+      const patternQ = /colo?r/; // o가 0개 아니면 1개
+      console.log("? 테스트: ", patternQ.test("coloor"));
+
+      // {m,n}: 최소 m ~ 최대 n회 반복 ({m, n}이렇게 띄어 쓰면 안 먹힘)
+      const patternRepeat = /^a{2,4}$/; // a가 2글자 이상 4글자 이하
+      console.log("{2,4} 테스트: ", patternRepeat.test("aaa"));
+
+      // []: 문자셋
+      const patternSet = /^[a-z]{2,5}$/;
+      console.log("[] 테스트: ", patternSet.test("aazaa"));
+    </script>
+  </body>
+</html>

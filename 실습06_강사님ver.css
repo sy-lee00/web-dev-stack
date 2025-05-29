@@ -1,0 +1,39 @@
+body {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+}
+img {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin: 10px;
+}
+button {
+  border: none; /* button은 테두리가 안 이뻐서 없앰(강사님 주관) */
+  font-size: 1rem;
+  padding: 5px 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer; /* button에 커서 올리면 커서 모양 바뀜(상호작용) */
+  background: #66cc00;
+  color: #9933ff;
+}
+button:last-child {
+  background: #66cc00;
+  color: #9933ff;
+}
+button:active {
+  color: white;
+}
+h2 {
+  font-style: italic;
+  font-weight: bold;
+  margin-top: 20px;
+  visibility: hidden;
+}

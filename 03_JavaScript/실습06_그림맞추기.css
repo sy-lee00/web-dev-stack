@@ -48,6 +48,9 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
+  border: 0px;
+  cursor: pointer;
 }
 #restart {
   width: 110px;
@@ -58,6 +61,9 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
+  border: 0px;
+  cursor: pointer;
 }
 #conglate {
   font-style: italic;
