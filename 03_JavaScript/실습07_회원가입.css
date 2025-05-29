@@ -1,0 +1,56 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+h1 {
+  font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+section {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding-top: 10px;
+  padding-bottom: 20px;
+  width: 800px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+.input {
+  padding: 10px 500px 10px 10px;
+  margin: 10px 30px 5px 30px;
+  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+section p {
+  color: rgba(0, 0, 0, 0.2);
+  margin: 0px 30px;
+}
+section form {
+  margin: auto;
+}
+#sign {
+  font-size: 15px;
+  color: white;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 7px 13px;
+  border: 0px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#cancel {
+  font-size: 15px;
+  color: white;
+  background: rgb(32, 177, 169);
+  margin-left: 5px;
+  padding: 7px 15px;
+  border: 0px;
+  border-radius: 5px;
+  cursor: pointer;
+}

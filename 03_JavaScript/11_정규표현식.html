@@ -30,7 +30,7 @@
       console.log("* 테스트: ", patternStar.test("abcd")); // c가 없어도 되고, 2개 이상이어도 true
 
       // +: 앞 문자가 1회 이상 반복
-      const patternPlus = /abc+b/; // c가 한 개 이상은 무조건
+      const patternPlus = /abc+d/; // c가 한 개 이상은 무조건
       console.log("+ 테스트: ", patternPlus.test("abccd"));
 
       // ?: 앞 문자가 0~1회
@@ -41,9 +41,67 @@
       const patternRepeat = /^a{2,4}$/; // a가 2글자 이상 4글자 이하
       console.log("{2,4} 테스트: ", patternRepeat.test("aaa"));
 
-      // []: 문자셋
+      // []: 문자셋, a-z: 알파벳 소문자들, A-Z: 알파벳 대문자, 0-9: 숫자 0~9까지, 가-힣: 한글 전부,
+      // !-~: 특수문자들부터 알파벳 소문자, 대문자, 숫자까지
       const patternSet = /^[a-z]{2,5}$/;
-      console.log("[] 테스트: ", patternSet.test("aazaa"));
+      console.log("[] 테스트: ", patternSet.test("azaza"));
+      const patternSet2 = /^[!-~]+$/;
+      console.log("[] 테스트2: ", patternSet2.test("sky00^^SK"));
+
+      // (): 그룹화, |: OR
+      const patternG = /(dog|cat)/; // dog 또는 cat이 포함되어 있나
+      console.log("(), | 테스트: ", patternG.test("dog"));
+
+      // \d: 숫자(0-9), \D: 숫자 제외
+      const patternDigit = /^\d+$/;
+      console.log("\\d 테스트 ", patternDigit.test("123456"));
+      const patternDigit2 = /^\D+$/;
+      console.log("\\D 테스트 ", patternDigit2.test("aaa"));
+
+      // \w: 문자/숫자/_ 포함, \W: 그 외
+      const patternW = /^\w+$/;
+      console.log("\\w 테스트: ", patternW.test("asd_123"));
+      const patternW2 = /^\W+$/;
+      console.log("\\W 테스트: ", patternW2.test("!@#$"));
+
+      // \s: 공백, \S: 공백 제외
+      const patternS = /\s+/; // 공백 포함되어 있는지
+      console.log("\\s 테스트: ", patternS.test("a b"));
+      const patternS2 = /\S+/; // 공백이 없는지
+      console.log("\\S 테스트: ", patternS2.test("a b"));
+    </script>
+
+    <h2>match / replace / split</h2>
+    <script>
+      const test = "apple banana kiwi orange";
+      console.log("match: ", test.match(/kiwi/));
+      console.log("replace: ", test.replace(/a/g, "y"));
+      console.log("split: ", "010-1234-5678".split(/-/));
+    </script>
+
+    <h2>주민등록번호 정규표현식</h2>
+    <input type="text" id="rrn" placeholder="(-)포함해서 입력주세요" />
+    <p id="result"></p>
+    <script>
+      rrn.addEventListener("input", (e) => {
+        console.log(e.target.value);
+        // 000000-0000000
+        let regExp = /^\d{6}-\d{7}$/;
+        // 성별: - 다음 바로 나오는 숫자가 1~4까지만 허용
+        regExp = /^[0-9]{6}-[1-4][0-9]{6}$/;
+        // 생년월일: 년 - 두자리 숫자, 월 - 01~12, 일 - 01-31
+        regExp =
+          /^[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])-[1-4][0-9]{6}$/;
+        if (regExp.test(e.target.value)) {
+          console.log("주민등록번호 맞음!");
+          result.innerHTML = "OK!";
+          result.style.color = "green";
+        } else {
+          console.log("주민등록번호 틀림");
+          result.innerHTML = "NO!";
+          result.style.color = "red";
+        }
+      });
     </script>
   </body>
 </html>
