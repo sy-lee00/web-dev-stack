@@ -205,7 +205,7 @@
   visibility: hidden;
 }
 #dis1 {
-  /* 영역 자체가 지워짐 */
+  /* 공간 자체가 지워짐 */
   display: none;
 }
 #z-outer {

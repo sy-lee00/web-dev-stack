@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로그인</title>
+    <link rel="stylesheet" href="../실습07_강사님ver.css" />
+  </head>
+  <body>
+    <h1 id="h1">로그인</h1>
+    <div id="form">
+      <div>
+        <input type="text" id="username" placeholder="이름을 입력해주세요" />
+      </div>
+      <div>
+        <input
+          type="text"
+          id="password"
+          placeholder="비밀번호를 입력해주세요"
+        />
+      </div>
+      <div>
+        <button type="button" onclick="setLocal(), getLocal()">로그인</button>
+      </div>
+      <p>비번: 1234</p>
+    </div>
+    <div id="sucsess">
+      <h1 id="successMent">asd</h1>
+      <button type="button" onclick="back()">로그아웃</button>
+    </div>
+    <script>
+      const username = document.querySelector("#username");
+      const password = document.querySelector("#password");
+      const h1 = document.querySelector("#h1");
+      const form = document.querySelector("#form");
+      const sucsess = document.querySelector("#sucsess");
+      const successMent = document.querySelector("#successMent");
+      sucsess.style.display = "none";
+      const setLocal = () => {
+        localStorage.setItem(password.value, username.value);
+      };
+      const getLocal = () => {
+        const name = localStorage.getItem("1234");
+        if (name == username.value) {
+          successMent.innerHTML = `${name}님 환영합니다!`;
+          h1.style.display = "none";
+          form.style.display = "none";
+          sucsess.style.display = "block";
+        }
+      };
+      const back = () => {
+        successMent.innerHTML = "";
+        h1.style.display = "block";
+        form.style.display = "block";
+        sucsess.style.display = "none";
+        password.value = "";
+        username.value = "";
+      };
+    </script>
+  </body>
+</html>

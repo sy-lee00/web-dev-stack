@@ -1,0 +1,53 @@
+/* body {
+} */
+h1 {
+  text-align: center;
+}
+form,
+#form,
+#sucsess {
+  border: 1px solid;
+  padding: 10px;
+  width: 70%;
+  margin: auto;
+  text-align: center;
+}
+form div,
+#form div {
+  display: flex;
+  flex-direction: column;
+}
+input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid;
+  margin: 5px;
+}
+form span {
+  margin: 0px 5px 5px;
+}
+form .button {
+  flex-direction: row;
+  justify-content: center;
+}
+button {
+  margin: 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  background: lightseagreen;
+  color: white;
+}
+form .button button:disabled {
+  background: lightgray;
+}
+div p {
+  text-align: left;
+  color: rgba(0, 0, 0, 0.3);
+}
+#logout {
+  display: block;
+  margin: auto;
+}

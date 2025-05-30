@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로그인</title>
+    <link rel="stylesheet" href="./실습07_강사님ver.css" />
+  </head>
+  <body>
+    <h1>로그인</h1>
+    <div id="form">
+      <div>
+        <input type="text" id="username" placeholder="이름을 입력해주세요" />
+      </div>
+      <div>
+        <input
+          type="text"
+          id="password"
+          placeholder="비밀번호를 입력해주세요"
+        />
+      </div>
+      <div>
+        <button type="button" id="login">로그인</button>
+      </div>
+    </div>
+    <script>
+      const login = document.querySelector("#login");
+      const username = document.querySelector("#username");
+      const password = document.querySelector("#password");
+      // 코드 중복! 함수로 기능으로
+      const show = (name) => {
+        document.body.innerHTML = `
+            <h1>${name}님 환영합니다!</h1>
+            <button type="button" id="logout">로그아웃</button>
+        `;
+        const logout = document.querySelector("#logout");
+        logout.addEventListener("click", () => {
+          localStorage.removeItem("name");
+          location.reload();
+        });
+      };
+
+      // 로그인이 되어 있는 건지 아닌지 상태 확인
+      const info = localStorage.getItem("name");
+      if (info) {
+        show(info);
+      }
+
+      login.addEventListener("click", () => {
+        // 아이디 입력하고 비밀번호 입력받은 값들 로그인
+        // 로그인 성공하고 이름을 저장
+        if (username.value === "" && password.value === "") {
+          alert("이름과 비밀번호를 입력해주세요");
+          return;
+        }
+        localStorage.setItem("name", username.value);
+        // ~~님 환영합니다! 로그아웃 버튼
+        show(username.value);
+      });
+    </script>
+  </body>
+</html>
