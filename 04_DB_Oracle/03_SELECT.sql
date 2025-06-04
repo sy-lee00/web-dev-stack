@@ -37,15 +37,38 @@
     - 테이블에 모든 컬럼을 조회하려면 * 기호를 사용
 */
 -- USER_INFO 테이블 전체 조회
-SELECT * FROM USER_INFO;
+SELECT
+    *
+FROM
+    user_info;
 
 -- USER_INFO 이름(NAME), 나이(AGE), 취미(HOBBY) 조회
-select name, age, hobby from user_info;
-SELECT name, age, hobby FROM user_info; -- MYSQL
-SELECT NAME, AGE, HOBBY FROM USER_INFO; -- Oracle
+SELECT
+    name,
+    age,
+    hobby
+FROM
+    user_info;
+
+SELECT
+    name,
+    age,
+    hobby
+FROM
+    user_info; -- MYSQL
+SELECT
+    name,
+    age,
+    hobby
+FROM
+    user_info; -- Oracle
 
 -- EMPLOYEE 테이블의 직원명(EMP_NAME), 이메일(EMAIL) 조회
-SELECT EMP_NAME, EMAIL FROM EMPLOYEE;
+SELECT
+    emp_name,
+    email
+FROM
+    employee;
 
 /*
     컬럼 산술 연산
@@ -58,12 +81,20 @@ SELECT EMP_NAME, EMAIL FROM EMPLOYEE;
     - "" 없이 별칭에 띄어쓰기나 숫자가 있으면 오류가 날 수도 있음
 */
 -- USER_INFO에서 나이(AGE)에 10년 후를 계산
-SELECT 
-NAME 이름, AGE 나이, AGE + 10 "10년 후" 
-FROM USER_INFO;
+SELECT
+    name     이름,
+    age      나이,
+    age + 10 "10년 후"
+FROM
+    user_info;
 
 -- EMPLOYEE에서 직원명(EMP_NAME), 월급(SALARY), 연봉 조회
-SELECT EMP_NAME, SALARY, SALARY * 12 FROM EMPLOYEE;
+SELECT
+    emp_name,
+    salary,
+    salary * 12
+FROM
+    employee;
 
 /*
     리터럴(문자열)
@@ -75,12 +106,20 @@ SELECT EMP_NAME, SALARY, SALARY * 12 FROM EMPLOYEE;
     - 컬럼값과 리터럴도 연결할 수 있음
 */
 -- USER_INFO에서 이름(NAME), 나이(AGE), 단위(살) 조회
-SELECT NAME, AGE || '살' AS 나이 FROM USER_INFO;
+SELECT
+    name,
+    age || '살' AS 나이
+FROM
+    user_info;
 
 -- USER_INFO에서 이름(NAME)의 MBTI는 XXXX입니다 조회
-SELECT 
-    NAME || '의 MBTI는' || MBTI || '입니다' AS MBTI 
-FROM USER_INFO; 
+SELECT
+    name
+    || '의 MBTI는'
+    || mbti
+    || '입니다' AS mbti
+FROM
+    user_info; 
 
 /*
     DISTINCT
@@ -88,10 +127,16 @@ FROM USER_INFO;
     - 주의사항: DISTINCT는 SELECT 절에서 한 번만 기술 가능
 */
 -- USER_INFO에서 나이(AGE)가 중복되지 않게 조회
-SELECT DISTINCT AGE FROM USER_INFO;
+SELECT DISTINCT
+    age
+FROM
+    user_info;
 
 -- USER_INFO에서 MBTI 중복되지 않게 조회
-SELECT DISTINCT MBTI FROM USER_INFO;
+SELECT DISTINCT
+    mbti
+FROM
+    user_info;
 /*
     WHERE 절
     
@@ -109,6 +154,204 @@ SELECT DISTINCT MBTI FROM USER_INFO;
     >, <, >=, <=: 대소 비교
 */
 -- USER_INFO에서 나이가 30이상인 이름(NAME), 나이(AGE), 생년월일(BIRTHDATE) 조회
-SELECT * FROM USER_INFO WHERE AGE >= 30;
+SELECT
+    *
+FROM
+    user_info
+WHERE
+    age >= 30;
 -- EMPLOYEE에서 부서코드(DEPT_CODE)가 'D9'인 사원들 (모든 컬럼) 조회
-SELECT * FROM EMPLOYEE WHERE DEPT_CODE = 'D9';
+SELECT
+    *
+FROM
+    employee
+WHERE
+    dept_code = 'D9';
+
+/*
+    OR(또는), AND(그리고)
+*/
+-- 테이블: USER_INFO
+-- 성별(GENDER)이 여자이거나 나이(AGE)가 25살 이하인 사람들 조회
+SELECT
+    *
+FROM
+    user_info
+WHERE
+    age <= 25
+    OR gender = '여';
+
+-- 테이블: EMPLOYEE
+-- 급여(SALARY)가 350만원 이상 600만원 이하를 받는 사원들 조회
+SELECT
+    *
+FROM
+    employee
+WHERE
+        salary >= 3500000
+    AND salary <= 6000000;
+
+/*
+    BETWEEN AND
+    - 조건식에서 사용되는 구문
+    - 몇 이상 몇 이하인 범위에 대한 조건을 제시할 때 사용
+    
+    컬럼 BWTWEEN 하한값 AND 상한값;
+*/
+
+SELECT
+    *
+FROM
+    employee
+WHERE
+    salary BETWEEN 3500000 AND 6000000;
+
+-- USER_INFO에서 나이가 25~30 사이인 사람들 조회
+SELECT
+    *
+FROM
+    user_info
+WHERE
+    age BETWEEN 25 AND 30;
+
+/*
+    LIKE
+    - 비교하고자 하는 컬럼 값이 특정 패턴에 만족할 경우 조회
+    
+    컬럼 LIKE '특정패턴'
+    - 특정패턴에는 '%', '_'를 와일드카드로 사용
+    
+    '_': 1글자
+    '_문자': 앞에 1글자 + 문자
+    '__문자': 앞에 2글자 + 문자
+    '_문자_': 앞뒤에 1글자 씩 + 문자
+    
+    '%': 0글자 이상
+    '문자%': 문자로 시작
+    '%문자': 문자로 끝남
+    '%문자%': 문자 포함(키워드 검색)
+*/
+-- 테이블: USER_INFO
+-- 이름이 '은'으로 끝나는 경우 조회
+SELECT *
+FROM USER_INFO
+WHERE NAME LIKE '%은';
+-- 성이 '성'씨인 경우 조회
+SELECT *
+FROM USER_INFO
+WHERE NAME LIKE '성%';
+-- MBTI가 'E'면서 'T'인 경우 조회
+SELECT *
+FROM USER_INFO
+WHERE MBTI LIKE 'E_T_';
+-- 전화번호가 010-2XXX-XXXX인 경우 조회
+SELECT *
+FROM USER_INFO
+WHERE CONTACT LIKE '010-2%';
+-- 나이가 25 이하이면서 경기도에 사는 사람이거나 MBTI가 INTP인 경우
+SELECT *
+FROM USER_INFO
+WHERE AGE <= 25 AND ADDRESS LIKE '경기%' OR MBTI LIKE 'INTP';
+
+-- 테이블: EMPLOYEE
+-- 이메일 중 _ 앞글자가 3글자인 사원들 조회
+-- ESCAPE OPTION: 나만의 와일드카드 만들어서 사용
+SELECT *
+FROM EMPLOYEE
+WHERE EMAIL LIKE '___$_%' ESCAPE '$';
+
+-- 위 사원들 이외의 사원들 조회
+-- 부정연산자: NOT
+SELECT *
+FROM EMPLOYEE
+WHERE EMAIL NOT LIKE '___$_%' ESCAPE '$';
+
+/*
+    IS NULL / IS NOT NULL
+    - 컬럼값에 NULL이 있을 경우 NULL 값 비교에 사용되는 연산자
+*/
+-- MBTI가 NULL인 사람들 조회
+SELECT * 
+FROM USER_INFO
+WHERE MBTI IS NOT NULL;
+
+-- EMPLOYEE에서 보너스(BONUS)를 받지 않는 사원들 조회
+SELECT *
+FROM EMPLOYEE
+WHERE BONUS IS NULL;
+-- 부서배치를 아직 받지 않고(DEPT_CODE) 보너스는 받는 사원들 조회
+SELECT *
+FROM EMPLOYEE
+WHERE DEPT_CODE IS NULL AND BONUS IS NOT NULL;
+
+/*
+    IN
+    - 컬럼 값이 내가 제시한 목록 중에 일치하는 값이 있는지
+    컬럼 IN ('값1', '값2', ...) -> 검색 필터
+*/
+-- USER_INFO에서 MBTI가 INFP 또는 INTJ인 사용자 조회
+SELECT *
+FROM USER_INFO
+WHERE MBTI = 'INFP' OR MBTI = 'INTJ';
+
+SELECT *
+FROM USER_INFO
+WHERE MBTI IN ('INFP', 'INTJ');
+
+-- EMPLOYEE에서 부서코드(DEPT_CODE)가 D5, D6, D8인 사원들 조회
+SELECT *
+FROM EMPLOYEE
+WHERE DEPT_CODE IN ('D5', 'D6', 'D8');
+
+-- 직급코드(JOB_CODE)가 J7이거나 J2인 사원들 중 급여가 200만원 이상인 사원들 조회
+-- IN 연산자 사용 / OR 연산자 사용
+SELECT *
+FROM EMPLOYEE
+WHERE JOB_CODE IN ('J7', 'J2') AND SALARY >= '2000000';
+
+/*
+    연산자 우선순위
+    0. ()
+    1. 산술연산자: *, /, +, -
+    2. 문자열 연결: ||
+    3. 비교연산자: =, !=, <>, <, >, <=, >=
+    4. IS NULL / LIKE / IN / BETWEEN
+    5. NOT
+    6. AND
+    7. OR
+*/
+
+SELECT *
+FROM EMPLOYEE
+WHERE (JOB_CODE = 'J2' OR JOB_CODE = 'J7') AND SALARY >= 2000000;
+
+/*
+    ORDER BY
+    - SELECT 문 가장 마지막 줄에 작성 뿐만 아니라 실행순서 또한 마지막
+    
+    실행 순서
+    3 SELECT 컬럼, 컬럼, ...
+    1 FROM 테이블명
+    2 WHERE 조건식
+    4 ORDER BY 정렬하고자 하는 컬럼 값 [ASC | DESC];
+    
+    - ASC: 오름차순 정렬(생략시 기본값)
+    - DESC: 내림차순 정렬
+*/
+-- USER_INFO에서 나이를 오름차순 정렬
+SELECT *
+FROM USER_INFO
+ORDER BY AGE;
+-- MBTI는 오름차순, 나이는 내림차순 정렬
+-- 조건은 MBTI가 I인 분들 조회
+SELECT NAME, AGE, GENDER, MBTI
+FROM USER_INFO
+-- ORDER BY 4 ASC, 2 DESC;
+ORDER BY MBTI DESC NULLS LAST;
+
+-- EMPLOYEE에서 전체 사원의 사원명, 보너스 조회(보너스 기준 오름차순 정렬)
+-- 보너스 기준 오름차순 정렬
+SELECT *
+FROM EMPLOYEE
+-- ORDER BY BONUS NULLS FIRST; -- 오름차순인 경우는 NULL이 맨 뒤에
+ORDER BY BONUS DESC NULLS LAST; -- 내림차순인 경우는 NULL이 맨 앞에
