@@ -312,8 +312,146 @@ FROM DUAL;
     
     DECODE(값, 조건값1, 결과값1, 조건값2, 결과값2, ...)
     - 비교하고자 하는 값이 조건값과 일치하는 경우 그에 해당하는 결과값 반환
+    
+    CASE WHEN 조건식1 THEN 결과값1
+        WHEN 조건식2 THEN 결과값2
+        ...
+    ELSE 결과값N
+    END
 */
 -- EMPLOYEE에서 주민번호(EMP_NO)로 성별(남, 여) 조회
-SELECT EMP_NO, 
+SELECT 
+    EMP_NAME, 
+    EMP_NO, 
     DECODE(SUBSTR(EMP_NO, INSTR(EMP_NO, '-') + 1, 1), 1, '남', 2, '여') 성별
+FROM EMPLOYEE;
+
+SELECT 
+    EMP_NAME,
+    EMP_NO,
+    CASE WHEN SUBSTR(EMP_NO, 8, 1) = 1 THEN '남'
+        WHEN SUBSTR(EMP_NO, 8, 1) = 2 THEN '여'
+    END 성별
+FROM EMPLOYEE;
+
+-- 직급 코드가 J7인 사원은 급여를 10% 인상
+-- 직급 코드가 J6인 사원은 급여를 15% 인상
+-- 직급 코드가 J5인 사원은 급여를 20% 인상
+-- 그 외 직급 사원은 급여를 5% 인상
+-- 정렬: 직급코드(JOB_CODE) J1부터, 인상된 급여 높은 순서대로
+SELECT EMP_NAME, 
+JOB_CODE, 
+SALARY, 
+DECODE(JOB_CODE, 
+    'J7', SALARY * 1.1, 
+    'J6', SALARY * 1.15, 
+    'J5', SALARY * 1.2, SALARY * 1.05) 인상급여
+FROM EMPLOYEE
+ORDER BY JOB_CODE, 인상급여 DESC;
+
+SELECT EMP_NAME, 
+    JOB_CODE, 
+    SALARY,
+    CASE JOB_CODE
+        WHEN 'J7' THEN SALARY * 1.1
+        WHEN 'J6' THEN SALARY * 1.15
+        WHEN 'J5' THEN SALARY * 1.2
+    ELSE SALARY * 1.05
+    END 인상급여
+FROM EMPLOYEE
+ORDER BY JOB_CODE, 인상급여 DESC;
+
+-- 급여가 500만원 초과일 경우 1등급
+-- 급여가 500만원 이하, 350만원 초과일 경우 2등급
+-- 급여가 350만원 이하, 200만원 초과일 경우 3등급
+-- 그 외의 경우 4등급
+SELECT 
+    EMP_NAME,
+    SALARY,
+    CASE WHEN SALARY > 5000000 THEN '1등급'
+        WHEN SALARY > 3500000 THEN '2등급'
+        WHEN SALARY > 2000000 THEN '3등급'
+    ELSE '4등급'
+    END
+FROM EMPLOYEE;
+
+/*
+    그룹 함수 -> 결과값이 1개임
+    - 대량의 데이터들로 집계나 통계 같은 작업을 처리해야 하는 경우
+    - 모든 그룹 함수는 NULL값을 자동으로 제외하고 값이 있는 것들만 계산
+*/
+-- SUM: 해당 컬럼 값들의 총 합계
+-- USER_INFO에서 나이(AGE) 모두 더한 값
+SELECT SUM(AGE)
+FROM USER_INFO;
+
+-- EMPLOYEE에서 부서코드가 D5인 사원들의 총 연봉
+SELECT SUM(SALARY * 12)
+FROM EMPLOYEE
+WHERE DEPT_CODE = 'D5';
+
+SELECT SUM(DECODE(DEPT_CODE, 'D5', SALARY * 12, 0))
+FROM EMPLOYEE;
+
+SELECT SUM(
+        CASE DEPT_CODE
+            WHEN 'D5' THEN SALARY * 12
+        ELSE 0
+        END
+        ) D5총연봉
+FROM EMPLOYEE;
+
+/*
+    AVG
+    - 해당 컬럼값들의 평균값
+    - 모든 그룹 함수는 NULL 값을 자동으로 제외하기 때문에
+        NVL 함수랑 함께 사용할 것을 권장
+*/
+-- USER_INFO에서 평균 나이
+SELECT FLOOR(AVG(CASE WHEN AGE < 100 THEN AGE END))
+FROM USER_INFO;
+-- EMPLOYEE에서 평균 보너스값(BONUS)
+SELECT ROUND(AVG(NVL(BONUS, 0)), 2) 평균보너스
+FROM EMPLOYEE;
+
+/*
+    MIN: 해당 컬럽 값들 중에 가장 작은 값
+    MAX: 해당 컬럼 값들 중에 가장 큰 값
+*/
+-- EMPLOYEE에서 MIN, MAX 전부 사용해서
+-- 사원명(EMP_NAME), 급여(SALARY), 입사일(HIRE_DATE)
+SELECT MIN(EMP_NAME), MAX(EMP_NAME),
+        MIN(SALARY), MAX(SALARY),
+        MIN(HIRE_DATE), MAX(HIRE_DATE)
+FROM EMPLOYEE;
+
+/*
+    COUNT -> 가장 많이 사용
+    - 컬럼 또는 행의 개수를 세서 반환
+    - *: 조회 결과에 해당하는 모든 행 개수 반환
+    - 컬럼: 해당 컬럼값이 NULL이 아닌 행 개수 반환
+    - DISTINCT 컬럼: 해당 컬럼값이 중복을 제거한 행 개수 반환
+*/
+-- USER_INFO 전체 사람 수 조회
+SELECT COUNT(*)
+FROM USER_INFO;
+-- 서울에 사는 사람들 수 조회
+SELECT COUNT(ADDRESS)
+FROM USER_INFO
+WHERE ADDRESS LIKE '%서울%';
+
+SELECT COUNT(CASE WHEN ADDRESS LIKE '%서울%' THEN 1 END)
+FROM USER_INFO;
+-- EMPLOYEE에서 보너스를 받은 사원 수 조회
+SELECT COUNT(*)
+FROM EMPLOYEE
+WHERE BONUS IS NOT NULL;
+
+SELECT COUNT(BONUS) -- 그룹함수라 NULL 처리 해줌
+FROM EMPLOYEE;
+-- 부서가 배치된 사원 수 조회
+SELECT COUNT(DEPT_CODE)
+FROM EMPLOYEE;
+-- 현재 사원들이 속해있는 부서 수 조회
+SELECT COUNT(DISTINCT DEPT_CODE) 부서수
 FROM EMPLOYEE;

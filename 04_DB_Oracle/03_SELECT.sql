@@ -331,7 +331,7 @@ WHERE (JOB_CODE = 'J2' OR JOB_CODE = 'J7') AND SALARY >= 2000000;
     
     실행 순서
     3 SELECT 컬럼, 컬럼, ...
-    1 FROM 테이블명
+    1 TROM 테이블명
     2 WHERE 조건식
     4 ORDER BY 정렬하고자 하는 컬럼 값 [ASC | DESC];
     
@@ -355,3 +355,54 @@ SELECT *
 FROM EMPLOYEE
 -- ORDER BY BONUS NULLS FIRST; -- 오름차순인 경우는 NULL이 맨 뒤에
 ORDER BY BONUS DESC NULLS LAST; -- 내림차순인 경우는 NULL이 맨 앞에
+
+/*
+    GROUP BY
+    - 그룹 기준을 제시할 수 있는 구문
+    - 여러 개의 값들을 하나의 그룹으로 묶어서 처리할 목적으로 사용
+*/
+-- MBTI별 평균 나이, 나이 합계, 명 수
+SELECT MBTI, AVG(AGE), SUM(AGE), COUNT(*)
+FROM USER_INFO
+GROUP BY MBTI;
+
+-- EMPLOYEE: 성별 사원 수 조회
+SELECT COUNT(*) "사원 수",
+    DECODE(SUBSTR(EMP_NO, 8, 1), 1, '남', 2, '여') 성별
+FROM EMPLOYEE
+GROUP BY SUBSTR(EMP_NO, 8, 1);
+
+/*
+    HAVING
+    - 그룹에 대한 조건을 제시할 때 사용하는 구문
+    
+    SELECT 실행 순서
+    5 SELECT * | 컬럼 | 함수
+    1 FROM 테이블명
+    2 WHERE 조건식
+    3 GROUP BY 그룹 기준에 해당하는 컬럼 | 함수
+    4 HAVING 조건식(그룹 함수)
+    6 ORDER BY 컬럼 | 별칭| 컬럼순번(숫자)
+*/
+-- EMPLOYEE에서 부서별 평균 급여가 300만원 이상인 직원의 평균 급여(SALARY)를 조회(부서코드 - DEPT_CODE)
+SELECT DEPT_CODE, TO_CHAR(FLOOR(AVG(NVL(SALARY, 0))), '999,999,999')
+FROM EMPLOYEE
+WHERE DEPT_CODE IS NOT NULL
+GROUP BY DEPT_CODE
+HAVING AVG(NVL(SALARY, 0)) >= 3000000;
+-- 직급별(JOB_CODE) 총 급여의 합이 1000만원 이상인 직급만 조회
+SELECT JOB_CODE, SUM(SALARY)
+FROM EMPLOYEE
+GROUP BY JOB_CODE
+HAVING TO_CHAR(SUM(SALARY) >= 10000000, '999,999,999');
+-- 부서별 보너스를 받는 사원이 없는 부서만 조회
+SELECT DEPT_CODE, COUNT(BONUS)
+FROM EMPLOYEE
+GROUP BY DEPT_CODE
+HAVING COUNT(BONUS) = 0;
+-- USER_INFO에서 MBTI별 평균 나이를 계산하는데 평균 나이가 30 이하인 MBTI만 조회. 단, 나이가 100살 이상인 경우는 제외
+SELECT MBTI, AVG(AGE)
+FROM USER_INFO
+WHERE MBTI IS NOT NULL
+GROUP BY MBTI
+HAVING AVG(NVL(AGE, 0)) <= 30;
