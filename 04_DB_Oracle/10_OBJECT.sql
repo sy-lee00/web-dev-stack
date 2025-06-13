@@ -23,6 +23,7 @@
     뷰명: VW_
     트리거명: TRG_
 */
+SET SERVEROUTPUT ON;
 CREATE SEQUENCE SEQ_EMPID
     START WITH 300
     INCREMENT BY 5
@@ -443,14 +444,310 @@ CREATE USER test IDENTIFIED BY test;
 GRANT CONNECT, RESOURCE TO test;
 GRANT SELECT ON kh.DEPARTMENT TO test;
 
-SELECT * FROM DEPT;
+/*
+    커서(CURSOR)
+    - SQL 쿼리의 결과가 여러 행일 때 처리 결과를 한 행씩 처리하는 객체
+    
+    1. 묵시적(implicit) 커서
+        오라클에서 자동으로 생성되어 사용하는 커서
+        PL/SQL에서 SQL문 실행 시 자동으로 만들어져서 사용
+        
+    2. 명시적(ecplicit) 커서
+        사용자가 직접 선언해서 사용할 수 있는 커서
+        
+        CURSOR 커서명 IS SELECT 문
+        
+        OPEN 커서명
+        FETCH 커서명 INTO 변수, ...
+        ...
+        CLOSE 커서명;
+*/
+CREATE TABLE EMP_COPY
+AS SELECT * FROM EMPLOYEE;
 
-SELECT * FROM EMP;
-SELECT * FROM VW_EMP_SAL;
-SELECT * FROM VW_DT_JOB;
-SELECT * FROM VW_JOINEMP;
+SELECT * FROM EMP_COPY;
+
+-- 1. 묵시적 커서
+-- PL/SQL에서 EMP_COPY 테이블에 BONUS가 NULL인 사원의 BONUS를 0으로 수정
+BEGIN
+    UPDATE EMP_COPY
+    SET BONUS = 0
+    WHERE BONUS IS NULL;
+    
+    DBMS_OUTPUT.PUT_LINE(SQL%ROWCOUNT || '행 수정됨');
+END;
+/
+
+-- 2. 명시적 커서
+-- PL/SQL에서 급여가 300만원 이상인 사원들 출력(사번, 사원, 급여)
+SELECT * 
+FROM EMPLOYEE
+WHERE SALARY >= 3000000;
+
+DECLARE
+    EID EMPLOYEE.EMP_ID%TYPE;
+    ENAME EMPLOYEE.EMP_NAME%TYPE;
+    SAL EMPLOYEE.SALARY%TYPE;
+    
+    CURSOR C1 IS SELECT EMP_ID, EMP_NAME, SALARY
+                    FROM EMPLOYEE
+                    WHERE SALARY >= 3000000;
+BEGIN
+    OPEN C1;
+    
+    LOOP
+        FETCH C1 INTO EID, ENAME, SAL;
+        EXIT WHEN C1%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE(EID || ' ' || ENAME || ' ' || SAL);
+    END LOOP;
+    
+    CLOSE C1;
+END;
+/
+
+-- FOR LOOP를 이용한 커서 사용
+-- 1. LOOP 시작시 자동으로 커서 OPEN(즉, OPEN 필요 X)
+-- 2. 반복할 때마다 FETCH도 자동
+-- 3. LOOP 종료시 자동으로 커서 CLOSE
+DECLARE
+    EMP EMPLOYEE%ROWTYPE;
+BEGIN
+    FOR EMP IN (SELECT * FROM EMPLOYEE
+                    WHERE SALARY >= 3000000)
+    LOOP
+        DBMS_OUTPUT.PUT_LINE(EMP.EMP_ID || ' ' || EMP.EMP_NAME || ' ' || EMP.SALARY);
+    END LOOP;
+END;
+/
+
+/*
+    프로시저(PROCEDURE)
+    - PL/SQL 문을 저장하여 필요할 때마다 복잡한 구문을 다시 입력할 필요 없이 간단하게 호출
+    
+    CREATE OR REPLACE PROCEDURE 프로시저명(
+        매개변수 IN|OUT 데이터타입, ...
+        - IN: 사용자로부터 값을 입력받아 PROCEDURE로 전달해주는 역할 (기본값)
+        - OUT: PROCEDURE에서 호출 환경으로 값을 전달하는 역할
+    )
+    IS -- 선언부(DECLARE 대신)
+    BEGIN -- 실행부
+    EXCEPTION -- 예외처리부
+    END 프로시저명;
+    /
+    
+    호출시
+    EXECUTE(또는 EXEC) 프로시저명(매개값, ..);
+    
+    삭제
+    DROP PROCEDURE 프로시저명;
+*/
+-- EMP_COPY 테이블의 모든 데이터를 삭제하는 프로시저 생성
+CREATE OR REPLACE PROCEDURE DEL_ALL_EMP
+IS
+BEGIN
+    DELETE FROM EMP_COPY;
+END;
+/
+
+-- 프로시저 실행
+EXEC DEL_ALL_EMP;
+
+-- 매개변수가 있는 프로시저
+-- 사번을 입력받아서 해당하는 사원을 삭제하는 프로시저 생성
+-- 프로시저명: DEL_EMP_ID
+CREATE OR REPLACE PROCEDURE DEL_EMP_ID(
+    EMPC EMP_COPY.EMP_ID%TYPE
+)
+IS
+BEGIN 
+    DELETE FROM EMP_COPY
+    WHERE EMP_ID = EMPC;
+    COMMIT;
+END DEL_EMP_ID;
+/
+
+EXEC DEL_EMP_ID('&사번');
+
+-- IN/OUT 매개변수가 있는 프로시저
+-- 사번을 입력받아서 해당하는 사원의 이름, 급여를 전달하는 프로시저 생성
+-- 프로시저명: SEL_EMP_ID
+-- 변수명: EID - IN, ENAME - OUT, SAL - OUT
+CREATE OR REPLACE PROCEDURE SEL_EMP_ID(
+    EID EMP_COPY.EMP_ID%TYPE,
+    ENAME OUT EMP_COPY.EMP_NAME%TYPE,
+    SAL OUT EMP_COPY.SALARY%TYPE
+)
+IS
+BEGIN
+    SELECT EMP_NAME, SALARY
+    INTO ENAME, SAL
+    FROM EMP_COPY
+    WHERE EMP_ID = EID;
+END SEL_EMP_ID;
+/
+
+-- 바인드 변수: VAR 변수명 데이터타입;
+VAR VAR_EMP_NAME VARCHAR2(30);
+VAR VAR_SALARY NUMBER;
+EXEC SEL_EMP_ID('&사번', :VAR_EMP_NAME, :VAR_SALARY);
+
+-- 바인드 변수에 담긴 값 출력
+PRINT VAR_EMP_NAME;
+PRINT VAR_SALARY;
+    
+SELECT * FROM EMP_COPY;
 ROLLBACK;
 
+/*
+    함수(FUNCTION)
+    - 프로시저와 거의 유사한 용도로 사용하지만 실행 결과를 되돌려 받을 수 있다.
+    
+    CREATE OR REPLACE FUNCTION 함수명(
+        매개변수 데이터타입, ...
+    )
+    RETURN 데이터타입
+    IS -- 선언부(DECLARE 대신)
+    BEGIN -- 실행부
+        RETURN 반환값;
+    EXCEPTION -- 예외처리부
+    END 함수명;
+    /
+    
+    호출시
+    EXECUTE(또는 EXEC) 함수명(매개값, ..);
+    
+    삭제
+    DROP FUNCTION 함수명;
+*/
+-- 사번(EID)을 입력받아서 해당 사원의 연봉을 계산하여 리턴하는 함수 생성
+-- 함수명: SAL_CALC
+CREATE OR REPLACE FUNCTION SAL_CALC(
+    EID EMP_COPY.EMP_ID%TYPE
+)
+RETURN NUMBER
+IS
+    SAL EMP_COPY.SALARY%TYPE;
+    ENAME EMP_COPY.EMP_NAME%TYPE;
+BEGIN
+    SELECT SALARY
+    INTO SAL
+    FROM EMP_COPY
+    WHERE EMP_ID = EID;
+    
+    RETURN SAL * 12;
+END SAL_CALC;
+/
+
+SELECT EMP_NAME, SALARY, SAL_CALC(EMP_ID)
+FROM EMPLOYEE;
+
+/*
+    트리거(TRIGGER)
+    - 테이블이나 뷰가 DML(INSERT, UPDATE, DELETE)문에 의해 변경될 경우
+        자동으로 실행될 내용을 정의하여 저장
+        
+    CREATE OR REPLACE TRIGGER 트리거명
+    BEFORE|AFTER INSERT|UPDATE|DELETE ON 테이블명
+    FOR EACH ROW -- UPDATE, DELETE에선 필요
+    DECLARE 변수선언
+    BEGIN 실행내용(지정된 이벤트 발생 시 자동으로 실행할 구문)
+    EXCEPTION 예외처리
+    END;
+    /
+    
+    - BEFORE: 이벤트가 발생되기 전에 트리거 실행
+    - AFTER: 이벤트가 발생된 후에 트리거 실행
+*/
+-- EMPLOYEE 테이블에 새로운 행이 INSERT 될 때 '신입사원이 입사했습니다' 출력
+CREATE OR REPLACE TRIGGER ADD_EMP
+AFTER INSERT ON EMPLOYEE
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('신입사원이 입사했습니다');
+END;
+/
+SELECT * FROM EMPLOYEE;
+INSERT INTO EMPLOYEE(EMP_ID, EMP_NAME) VALUES(401, '아무개');
+
+-- :OLD : 수정, 삭제 전 데이터에 접근 가능
+-- :NEW : 추가, 수정 후 데이터에 접근 가능
+-- EMPLOYEE 테이블에 UPDATE 수행 후 '변경 전: 값, 변경 후: 값' 출력
+-- 트리거명: PUT_EMP
+CREATE OR REPLACE TRIGGER PUT_EMP
+AFTER UPDATE ON EMPLOYEE
+FOR EACH ROW
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('변경 전: ' || :OLD.EMP_NAME);
+    DBMS_OUTPUT.PUT_LINE('변경 후: ' || :NEW.EMP_NAME);
+END;
+/
+UPDATE EMPLOYEE
+SET EMP_NAME = '아무개'
+WHERE EMP_ID = '401';
+
+CREATE TABLE TB_PRODUCT(
+    PCODE NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    PNAME VARCHAR2(30) NOT NULL, -- 상품명
+    PRICE NUMBER, -- 상품 가격
+    STOCK NUMBER DEFAULT 0 -- 재고 수량
+);
+INSERT INTO TB_PRODUCT(PNAME, PRICE, STOCK) VALUES('TV', 10000, DEFAULT);
+INSERT INTO TB_PRODUCT(PNAME, PRICE, STOCK) VALUES('Phone', 20000, 10);
+INSERT INTO TB_PRODUCT(PNAME, PRICE, STOCK) VALUES('Notebook', 15000, 20);
+SELECT * FROM TB_PRODUCT;
+
+CREATE TABLE TB_PRODETAIL(
+    DCODE NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    PCODE NUMBER REFERENCES TB_PRODUCT,
+    PDATE DATE DEFAULT SYSDATE, -- 상품입출고일
+    AMOUNT NUMBER, -- 입출고 수량
+    STATUS CHAR(10) CHECK(STATUS IN ('입고', '출고')) -- 상태
+);
+-- 1번 TV 상품 오늘 날짜로 10개 입고
+INSERT INTO TB_PRODETAIL(PCODE, AMOUNT, STATUS)
+VALUES(1, 10, '입고');
+--> 1번 TV 상품의 재고수량이 10개 증가
+UPDATE TB_PRODUCT
+SET STOCK = STOCK + 10
+WHERE PCODE = 1;
+
+-- 2번 Phone 상품 오늘 날짜로 5개 출고
+CREATE OR REPLACE TRIGGER PROD_STOCK
+AFTER UPDATE ON TB_PRODUCT
+FOR EACH ROW
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('기존 수량: ' || :OLD.STOCK);
+    DBMS_OUTPUT.PUT_LINE('현재 수량: ' || :NEW.STOCK);
+END;
+/
+--> 2번 Phone 상품의 재고 수량이 5개 감소
+UPDATE TB_PRODUCT
+SET STOCK = STOCK - 5
+WHERE PCODE = 2;
+
+-- TB_PRODETAIL 테이블에 INSERT 발생 시
+-- TB_PRODUCT 테이블에 매번 자동으로 재고수량 UPDATE 되게끔 트리거 정의
+-- 트리거명: TRG_PRO
+CREATE OR REPLACE TRIGGER TRG_PRO
+AFTER INSERT ON TB_PRODETAIL
+FOR EACH ROW
+BEGIN
+    IF :NEW.STATUS = '입고'
+    THEN UPDATE TB_PRODUCT
+            SET STOCK = STOCK + :NEW.AMOUNT
+            WHERE PCODE = :NEW.PCODE;
+    END IF;
+    IF :NEW.STATUS = '출고'
+    THEN UPDATE TB_PRODUCT
+            SET STOCK = STOCK - :NEW.AMOUNT
+            WHERE PCODE = :NEW.PCODE;
+    END IF;
+END;
+/
+INSERT INTO TB_PRODETAIL(PCODE, AMOUNT, STATUS)
+VALUES(2, 4, '입고');
+
+SELECT * FROM TB_PRODETAIL;
+SELECT * FROM TB_PRODUCT;
 
 
 
